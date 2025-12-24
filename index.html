@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AFFINEX | Luxury Dropshipping</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        :root { --gold: #C5A059; --dark: #0F0F0F; --white: #FFFFFF; --grey: #F9F9F9; --green: #27ae60; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; margin: 0; background-color: var(--grey); color: var(--dark); overflow-x: hidden; }
+        nav { background: var(--dark); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #333; }
+        .logo { font-size: 1.5rem; font-weight: 900; color: var(--gold); letter-spacing: 3px; text-transform: uppercase; }
+        .cart-trigger { background: var(--gold); color: var(--dark); padding: 8px 18px; border-radius: 5px; font-weight: bold; cursor: pointer; border: none; }
+        #cartSidebar { position: fixed; right: -100%; top: 0; width: 340px; height: 100%; background: white; z-index: 3000; transition: 0.4s; box-shadow: -5px 0 15px rgba(0,0,0,0.2); padding: 25px; display: flex; flex-direction: column; }
+        #cartSidebar.active { right: 0; }
+        .cart-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--gold); padding-bottom: 15px; margin-bottom: 20px; }
+        #cartItems { flex-grow: 1; overflow-y: auto; }
+        .cart-footer { border-top: 2px solid #eee; padding-top: 20px; }
+        .confirm-order-btn { background: var(--green); color: white; width: 100%; padding: 16px; border: none; font-weight: 800; cursor: pointer; border-radius: 6px; }
+        .hero { height: 40vh; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=2070') center/cover; display: flex; justify-content: center; align-items: center; text-align: center; color: var(--white); }
+        .container { max-width: 1200px; margin: -60px auto 60px; padding: 0 20px; position: relative; z-index: 10; }
+        .card { background: var(--white); border-radius: 12px; overflow: hidden; border: 1px solid #eee; transition: 0.3s; width: 100%; max-width: 450px; margin: auto; box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+        .card img { width: 100%; height: auto; display: block; }
+        .card-body { padding: 30px; text-align: center; }
+        .price { font-size: 1.8rem; font-weight: 800; margin: 15px 0; }
+        .btn-group { display: flex; gap: 10px; margin-top: 25px; }
+        .buy-btn { flex: 2; background: var(--dark); color: white; padding: 15px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+        .add-btn { flex: 1; background: white; border: 2px solid var(--dark); padding: 15px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+        .modal { display: none; position: fixed; z-index: 4000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); overflow-y: auto; }
+        .modal-content { background: var(--white); max-width: 480px; margin: 20px auto; border-radius: 15px; overflow: hidden; position: relative; }
+        .modal-header { background: var(--dark); color: var(--gold); padding: 25px; text-align: center; }
+        .modal-body { padding: 30px; }
+        .input-group { margin-bottom: 15px; text-align: left; }
+        input, textarea { width: 100%; padding: 14px; border: 1px solid #ddd; border-radius: 8px; }
+        .final-submit-btn { background: var(--dark); color: var(--gold); width: 100%; padding: 18px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        footer { background: var(--dark); color: #666; padding: 40px 0; text-align: center; border-top: 4px solid var(--gold); }
+    </style>
+</head>
+<body>
+<nav><div class="logo">AFFINEX</div><button class="cart-trigger" onclick="toggleCart()">🛒 CART (<span id="cart-count">0</span>)</button></nav>
+<div id="cartSidebar"><div class="cart-header"><h3 style="margin:0">YOUR BAG</h3><span style="cursor:pointer" onclick="toggleCart()">✕</span></div><div id="cartItems"></div><div class="cart-footer" id="cartFooter" style="display:none;"><button class="confirm-order-btn" onclick="openOrder('Cart Checkout')">CONFIRM ORDER</button></div></div>
+<section class="hero"><h1>Upgrade Your Lifestyle</h1></section>
+<div class="container"><div class="card"><img src="https://uploads.onecompiler.io/43t4hdj9x/448jefz8d/1000046407.jpg" alt="Watch"><div class="card-body"><h2>Richard Black Belt Skeleton Watch</h2><div class="price">Rs. 3,385</div><div class="btn-group"><button class="buy-btn" onclick="openOrder('Richard Watch')">BUY NOW</button><button class="add-btn" onclick="addToCart('Richard Watch', 3385)">+ CART</button></div></div></div></div>
+<div id="orderModal" class="modal"><div class="modal-content"><div class="modal-header"><h3 style="margin:0">CHECKOUT</h3><p id="order-label"></p></div><div class="modal-body"><form action="https://formspree.io/f/mrezvybv" method="POST"><input type="hidden" name="Order_Summary" id="hidden_product"><div class="input-group"><label>First Name</label><input type="text" name="First_Name" required></div><div class="input-group"><label>Last Name</label><input type="text" name="Last_Name" required></div><div class="input-group"><label>Phone Number</label><input type="tel" name="Phone" placeholder="03XXXXXXXXX" required></div><div class="input-group"><label>City</label><input type="text" name="City" required></div><div class="input-group"><label>Address</label><textarea name="Address" rows="3" required></textarea></div><button type="submit" class="final-submit-btn">PLACE ORDER NOW</button></form></div></div></div>
+<footer><p>&copy; 2025 AFFINEX BRAND. LUXURY GOODS.</p></footer>
+<script>
+    let cart = [];
+    function toggleCart() { document.getElementById('cartSidebar').classList.toggle('active'); }
+    function addToCart(name, price) { cart.push({ name, price }); updateCart(); toggleCart(); }
+    function updateCart() { document.getElementById('cart-count').innerText = cart.length; const itemsDiv = document.getElementById('cartItems'); const footer = document.getElementById('cartFooter'); if (cart.length === 0) { itemsDiv.innerHTML = '<p style="text-align:center;margin-top:50px;">Empty</p>'; footer.style.display = 'none'; } else { footer.style.display = 'block'; itemsDiv.innerHTML = cart.map(i => `<div style="padding:10px; border-bottom:1px solid #eee;">${i.name} - Rs. ${i.price}</div>`).join(''); } }
+    function openOrder(product) { document.getElementById("orderModal").style.display = "block"; document.getElementById("hidden_product").value = product; }
+</script>
+</body>
+</html>
