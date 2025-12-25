@@ -15,7 +15,7 @@
             --red: #e74c3c;
         }
 
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; scroll-behavior: smooth; }
         body { font-family: 'Inter', sans-serif; margin: 0; background-color: var(--grey); color: var(--dark); overflow-x: hidden; }
 
         /* --- NAVIGATION --- */
@@ -27,32 +27,47 @@
         .search-box input { width: 100%; padding: 10px 20px; border-radius: 25px; border: 1px solid #444; outline: none; background: #1a1a1a; color: white; font-size: 0.9rem; }
         .search-box input:focus { border-color: var(--gold); }
 
-        .cart-trigger { background: var(--gold); color: var(--dark); padding: 8px 18px; border-radius: 5px; font-weight: bold; cursor: pointer; border: none; }
+        .cart-trigger { background: var(--gold); color: var(--dark); padding: 8px 18px; border-radius: 5px; font-weight: bold; cursor: pointer; border: none; transition: 0.3s; }
+        .cart-trigger:hover { background: white; }
 
-        .category-bar { background: #151515; padding: 10px 5%; display: flex; gap: 20px; overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid #222; }
-        .cat-link { color: #888; text-decoration: none; font-size: 0.85rem; font-weight: bold; cursor: pointer; text-transform: uppercase; white-space: nowrap; }
-        .cat-link:hover { color: var(--gold); }
+        /* IMPROVED CATEGORY BAR */
+        .category-bar { background: #151515; padding: 12px 5%; display: flex; justify-content: center; gap: 25px; overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid #222; }
+        .cat-link { color: #888; text-decoration: none; font-size: 0.85rem; font-weight: bold; cursor: pointer; text-transform: uppercase; white-space: nowrap; transition: 0.3s; padding-bottom: 5px; }
+        .cat-link:hover, .cat-link.active { color: var(--gold); border-bottom: 2px solid var(--gold); }
 
-        /* --- HERO --- */
-        .hero { height: 35vh; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=2070') center/cover; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: var(--white); }
-        .hero h1 { font-size: clamp(1.8rem, 5vw, 3rem); margin: 0; text-transform: uppercase; letter-spacing: 4px; }
+        /* --- HERO SECTION UPGRADED --- */
+        .hero { height: 45vh; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=2070') center/cover; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: var(--white); padding: 0 20px; }
+        .hero h1 { font-size: clamp(2rem, 6vw, 3.5rem); margin: 0; text-transform: uppercase; letter-spacing: 5px; margin-bottom: 15px; }
+        .hero p { font-size: 1rem; color: var(--gold); letter-spacing: 2px; margin-bottom: 25px; }
+        .hero-btn { background: var(--gold); color: var(--dark); padding: 15px 35px; border-radius: 30px; text-decoration: none; font-weight: bold; text-transform: uppercase; font-size: 0.9rem; transition: 0.3s; }
+        .hero-btn:hover { background: white; transform: scale(1.05); }
 
         /* --- GRID --- */
         .container { max-width: 1200px; margin: -50px auto 60px; padding: 0 20px; position: relative; z-index: 10; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; justify-content: center; }
 
-        .card { background: var(--white); border-radius: 12px; overflow: hidden; border: 1px solid #eee; transition: 0.3s; box-shadow: 0 15px 35px rgba(0,0,0,0.1); display: flex; flex-direction: column; position: relative; }
-        .card:hover { transform: translateY(-10px); }
+        .card { background: var(--white); border-radius: 12px; overflow: hidden; border: 1px solid #eee; transition: 0.4s; box-shadow: 0 15px 35px rgba(0,0,0,0.1); display: flex; flex-direction: column; position: relative; }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(197, 160, 89, 0.2); }
+        
         .badge { position: absolute; top: 15px; left: 15px; background: var(--red); color: white; padding: 5px 10px; font-size: 0.7rem; font-weight: bold; border-radius: 4px; z-index: 5; text-transform: uppercase; }
-        .card img { width: 100%; height: 300px; object-fit: cover; display: block; }
+        
+        .card img { width: 100%; height: 320px; object-fit: cover; display: block; }
         .card-body { padding: 25px; text-align: center; flex-grow: 1; }
         
-        .price { font-size: 1.8rem; font-weight: 800; margin: 15px 0; color: var(--dark); }
-        .details-list { text-align: left; margin: 20px 0; padding: 0; list-style: none; color: #555; line-height: 1.6; border-top: 1px solid #eee; padding-top: 15px; font-size: 0.85rem; }
+        .product-tagline { color: var(--green); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 5px; display: block; }
+        .price { font-size: 1.8rem; font-weight: 800; margin: 10px 0; color: var(--dark); }
+        
+        .details-list { text-align: left; margin: 15px 0; padding: 0; list-style: none; color: #555; line-height: 1.6; border-top: 1px solid #eee; padding-top: 15px; font-size: 0.85rem; }
+        
+        /* COD TRUST SECTION */
+        .trust-info { display: flex; justify-content: center; gap: 15px; margin-top: 15px; padding-top: 10px; border-top: 1px dashed #ddd; font-size: 0.75rem; color: #777; font-weight: 600; }
+        .trust-info span { display: flex; align-items: center; gap: 5px; }
 
-        .btn-group { display: flex; gap: 10px; margin-top: auto; }
-        .buy-btn { flex: 2; background: var(--dark); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; text-transform: uppercase; }
-        .add-btn { flex: 1; background: white; color: var(--dark); border: 2px solid var(--dark); padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+        .btn-group { display: flex; gap: 10px; margin-top: 20px; }
+        .buy-btn { flex: 2; background: var(--dark); color: white; border: none; padding: 14px; border-radius: 8px; font-weight: 700; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
+        .buy-btn:hover { background: var(--gold); color: var(--dark); }
+        .add-btn { flex: 1; background: white; color: var(--dark); border: 2px solid var(--dark); padding: 14px; border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.3s; }
+        .add-btn:hover { background: var(--dark); color: white; }
 
         /* --- SIDEBAR & MODAL --- */
         #cartSidebar { position: fixed; right: -100%; top: 0; width: 340px; height: 100%; background: white; z-index: 3000; transition: 0.4s; box-shadow: -5px 0 15px rgba(0,0,0,0.2); padding: 25px; overflow-y: auto; }
@@ -75,10 +90,10 @@
         <button class="cart-trigger" onclick="toggleCart()">🛒 CART (<span id="cart-count">0</span>)</button>
     </nav>
     <div class="category-bar">
-        <span class="cat-link" onclick="filterCategory('all')">All</span>
-        <span class="cat-link" onclick="filterCategory('watch')">Watches</span>
-        <span class="cat-link" onclick="filterCategory('electronics')">Electronics</span>
-        <span class="cat-link" onclick="filterCategory('fashion')">Fashion</span>
+        <span class="cat-link active" onclick="filterCategory('all', this)">All Items</span>
+        <span class="cat-link" onclick="filterCategory('watch', this)">Watches</span>
+        <span class="cat-link" onclick="filterCategory('electronics', this)">Electronics</span>
+        <span class="cat-link" onclick="filterCategory('fashion', this)">Fashion</span>
     </div>
 </header>
 
@@ -95,22 +110,29 @@
 </div>
 
 <section class="hero">
-    <h1>Upgrade Your Lifestyle</h1>
+    <h1 class="animate__animated animate__fadeInDown">Upgrade Your Lifestyle</h1>
+    <p class="animate__animated animate__fadeInUp animate__delay-1s">Luxury Experience • Quality Guaranteed</p>
+    <a href="#productGrid" class="hero-btn animate__animated animate__zoomIn animate__delay-1s">Explore Collection</a>
 </section>
 
 <div class="container">
     <div class="grid" id="productGrid">
         
         <div class="card product-card animate__animated animate__fadeInUp" data-category="watch">
-            <div class="badge">Low Stock</div>
+            <div class="badge">Limited Stock</div>
             <img src="https://uploads.onecompiler.io/43t4hdj9x/448jefz8d/1000046407.jpg" alt="Watch">
             <div class="card-body">
+                <span class="product-tagline">🔥 Perfect Gift For Him</span>
                 <h2 class="product-title" style="margin:0; text-transform: uppercase; font-size: 1.1rem;">Richard Skeleton Watch</h2>
                 <div class="price">Rs. 3,385</div>
                 <ul class="details-list">
-                    <li><strong>• Material:</strong> Premium Build</li>
-                    <li><strong>• Design:</strong> Luxury Skeleton</li>
+                    <li><strong>• Design:</strong> Premium Skeleton View</li>
+                    <li><strong>• Strap:</strong> Durable Black Silicon</li>
                 </ul>
+                <div class="trust-info">
+                    <span>✅ COD Available</span>
+                    <span>🚚 Fast Shipping</span>
+                </div>
                 <div class="btn-group">
                     <button class="buy-btn" onclick="openOrder('1x Richard Skeleton Watch')">BUY NOW</button>
                     <button class="add-btn" onclick="addToCart('Richard Skeleton Watch', 3385)">+ CART</button>
@@ -121,12 +143,17 @@
         <div class="card product-card animate__animated animate__fadeInUp" data-category="electronics">
             <img src="https://uploads.onecompiler.io/43t4hdj9x/448ky3fmn/1000046559.jpg" alt="Keyboard Mouse Set">
             <div class="card-body">
+                <span class="product-tagline">✨ Work From Anywhere</span>
                 <h2 class="product-title" style="margin:0; text-transform: uppercase; font-size: 1.1rem;">Bluetooth Keyboard & Mouse Set</h2>
                 <div class="price">Rs. 2,450</div>
                 <ul class="details-list">
-                    <li><strong>• Compatibility:</strong> Android / iOS / Windows</li>
-                    <li><strong>• Features:</strong> Wireless & Rechargeable</li>
+                    <li><strong>• Combo:</strong> Rechargeable Slim Design</li>
+                    <li><strong>• Multi-Device:</strong> iPad/Tab/Mobile/PC</li>
                 </ul>
+                <div class="trust-info">
+                    <span>✅ COD Available</span>
+                    <span>🚚 Fast Shipping</span>
+                </div>
                 <div class="btn-group">
                     <button class="buy-btn" onclick="openOrder('1x Bluetooth Keyboard & Mouse Set')">BUY NOW</button>
                     <button class="add-btn" onclick="addToCart('Bluetooth Keyboard & Mouse Set', 2450)">+ CART</button>
@@ -160,7 +187,7 @@
     </div>
 </div>
 
-<footer><p>&copy; 2025 AFFINEX BRAND.</p></footer>
+<footer><p>&copy; 2025 AFFINEX BRAND. LUXURY REDEFINED.</p></footer>
 
 <script>
     let cart = [];
@@ -174,7 +201,11 @@
         }
     }
 
-    function filterCategory(cat) {
+    function filterCategory(cat, element) {
+        // Highlight active link
+        document.querySelectorAll('.cat-link').forEach(link => link.classList.remove('active'));
+        if(element) element.classList.add('active');
+
         let cards = document.getElementsByClassName('product-card');
         for (let i = 0; i < cards.length; i++) {
             let productCat = cards[i].getAttribute('data-category');
