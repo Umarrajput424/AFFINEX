@@ -181,30 +181,30 @@
                 <div style="display:flex; gap:10px;">
                     <div style="flex:1;">
                         <span class="form-label">First Name</span>
-                        <input type="text" name="First_Name" placeholder="Umar" required>
+                        <input type="text" name="First_Name" placeholder="Enter first name" required>
                     </div>
                     <div style="flex:1;">
                         <span class="form-label">Last Name</span>
-                        <input type="text" name="Last_Name" placeholder="Rajput" required>
+                        <input type="text" name="Last_Name" placeholder="Enter last name" required>
                     </div>
                 </div>
 
                 <div style="display:flex; gap:10px;">
                     <div style="flex:1;">
                         <span class="form-label">WhatsApp Number</span>
-                        <input type="tel" name="WhatsApp_Number" placeholder="0336..." required>
+                        <input type="tel" name="WhatsApp_Number" placeholder="03xxxxxxxxx" required>
                     </div>
                     <div style="flex:1;">
                         <span class="form-label">Phone Number</span>
-                        <input type="tel" name="Secondary_Phone" placeholder="0300..." required>
+                        <input type="tel" name="Secondary_Phone" placeholder="03xxxxxxxxx" required>
                     </div>
                 </div>
 
                 <span class="form-label">City</span>
-                <input type="text" name="City" placeholder="Lahore" required>
+                <input type="text" name="City" placeholder="e.g. Lahore" required>
 
                 <span class="form-label">Delivery Address</span>
-                <textarea name="Address" rows="3" placeholder="Full address with house number..." required style="resize:none;"></textarea>
+                <textarea name="Address" rows="3" placeholder="Full address (House #, Street, Area)" required style="resize:none;"></textarea>
 
                 <button type="submit" style="width:100%; background:var(--dark); color:var(--gold); padding:16px; border: 1px solid var(--gold); border-radius:10px; font-weight:900; cursor:pointer; text-transform:uppercase; margin-top:10px;">Confirm Order (COD)</button>
             </form>
@@ -223,7 +223,7 @@
 </div>
 
 <div class="footer-links">
-    <span class="f-link" onclick="openPolicy('about')">About</span>
+    <span class="f-link" onclick="openPolicy('about')">About Us</span>
     <span class="f-link" onclick="openPolicy('shipping')">Shipping</span>
     <span class="f-link" onclick="openPolicy('return')">Returns</span>
     <span class="f-link" onclick="openPolicy('faq')">FAQs</span>
@@ -233,10 +233,10 @@
 <script>
     let cart = [];
     const policies = {
-        about: `<h3>Vision</h3><p>AFFINEX provides top-tier products with elite quality control.</p>`,
-        shipping: `<h3>Shipping</h3><p>2-5 days delivery nationwide via premium couriers.</p>`,
-        return: `<h3>Returns</h3><p>7-Day exchange warranty for damaged goods.</p>`,
-        faq: `<h3>Support</h3><p>Available on WhatsApp: 03364446881.</p>`
+        about: `<h3>Vision</h3><p>AFFINEX provides top-tier products with elite quality control and a focus on customer satisfaction.</p>`,
+        shipping: `<h3>Shipping</h3><p>2-5 days delivery nationwide. Flat Rs. 200 delivery charge applies.</p>`,
+        return: `<h3>Returns</h3><p>7-Day exchange warranty for damaged or incorrect goods. Video proof required.</p>`,
+        faq: `<h3>Support</h3><p>WhatsApp Support available: 03364446881.</p>`
     };
 
     function searchProducts() {
@@ -302,7 +302,7 @@
     function closePolicy() { document.getElementById('policyModal').style.display = "none"; }
 
     function handleFormSubmit() {
-        alert("Order Received! We will contact you soon.");
+        alert("Order Received! We will contact you soon on WhatsApp.");
         return true; 
     }
 
