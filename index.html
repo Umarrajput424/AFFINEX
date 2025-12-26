@@ -50,6 +50,11 @@
         .card-body { padding: 25px; text-align: center; flex-grow: 1; }
         .product-tagline { color: var(--green); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 5px; display: block; }
         .price { font-size: 1.8rem; font-weight: 800; margin: 10px 0; }
+        
+        /* RESTORED DETAILS LIST STYLE */
+        .details-list { text-align: left; margin: 15px 0; padding: 0; list-style: none; color: #555; border-top: 1px solid #eee; padding-top: 15px; font-size: 0.85rem; }
+        .details-list li { margin-bottom: 5px; }
+        
         .trust-info { display: flex; justify-content: center; gap: 15px; margin-top: 15px; padding-top: 10px; border-top: 1px dashed #ddd; font-size: 0.75rem; color: #777; font-weight: 600; }
 
         .btn-group { display: flex; gap: 10px; margin-top: 20px; position: relative; z-index: 50; }
@@ -118,6 +123,7 @@
 
 <div class="container">
     <div class="grid" id="productGrid">
+        
         <div class="card product-card" data-category="watch">
             <div class="badge">Limited Stock</div>
             <img src="https://uploads.onecompiler.io/43t4hdj9x/448jefz8d/1000046407.jpg">
@@ -125,7 +131,14 @@
                 <span class="product-tagline">🔥 Best Seller</span>
                 <h2 class="product-title" style="margin:0; text-transform: uppercase; font-size: 1.1rem;">Richard Skeleton Watch</h2>
                 <div class="price">Rs. 3,385</div>
-                <div class="trust-info"><span>✅ COD Available</span><span>🚚 Fast Shipping</span></div>
+                
+                <ul class="details-list">
+                    <li>• Luxury Skeleton Design</li>
+                    <li>• Durable Silicon Strap</li>
+                    <li>• Premium Finish</li>
+                </ul>
+
+                <div class="trust-info"><span>✅ COD Available</span><span>🚚 Free Delivery</span></div>
                 <div class="btn-group">
                     <button class="buy-btn" onclick="openOrder('1x Richard Skeleton Watch')">BUY NOW</button>
                     <button class="add-btn" onclick="addToCart('Richard Skeleton Watch', 3385)">+ CART</button>
@@ -139,7 +152,14 @@
                 <span class="product-tagline">✨ Work From Anywhere</span>
                 <h2 class="product-title" style="margin:0; text-transform: uppercase; font-size: 1.1rem;">Bluetooth Keyboard & Mouse</h2>
                 <div class="price">Rs. 2,450</div>
-                <div class="trust-info"><span>✅ COD Available</span><span>🚚 Fast Shipping</span></div>
+                
+                <ul class="details-list">
+                    <li>• Slim Rechargeable Design</li>
+                    <li>• Compatible with iOS/Android/PC</li>
+                    <li>• Silent Keys</li>
+                </ul>
+
+                <div class="trust-info"><span>✅ COD Available</span><span>🚚 Free Delivery</span></div>
                 <div class="btn-group">
                     <button class="buy-btn" onclick="openOrder('1x Bluetooth Keyboard & Mouse')">BUY NOW</button>
                     <button class="add-btn" onclick="addToCart('Bluetooth Keyboard & Mouse', 2450)">+ CART</button>
@@ -153,7 +173,14 @@
                 <span class="product-tagline">💼 Luxury Leather</span>
                 <h2 class="product-title" style="margin:0; text-transform: uppercase; font-size: 1.1rem;">Badenroo Luxury Wallet</h2>
                 <div class="price">Rs. 1,850</div>
-                <div class="trust-info"><span>✅ Men's Choice</span><span>🚚 Delivery: 2-4 Days</span></div>
+                
+                <ul class="details-list">
+                    <li>• High Quality Flexible Leather</li>
+                    <li>• Multi-Card Slot Capacity</li>
+                    <li>• Elegant Slim Profile</li>
+                </ul>
+
+                <div class="trust-info"><span>✅ Men's Choice</span><span>🚚 Free Delivery</span></div>
                 <div class="btn-group">
                     <button class="buy-btn" onclick="openOrder('1x Badenroo Luxury Wallet')">BUY NOW</button>
                     <button class="add-btn" onclick="addToCart('Badenroo Luxury Wallet', 1850)">+ CART</button>
@@ -214,7 +241,7 @@
     let cart = [];
     const policies = {
         about: `<h3>Vision</h3><p>AFFINEX provides top-tier products with elite quality control.</p>`,
-        shipping: `<h3>Shipping</h3><p>2-5 days nationwide. Flat Rs. 200 delivery fee.</p>`,
+        shipping: `<h3>Shipping</h3><p>2-5 days nationwide. We offer <b>Free Delivery</b> on all orders!</p>`,
         return: `<h3>Returns</h3><p>7-Day exchange warranty for damaged items.</p>`,
         faq: `<h3>Support</h3><p>WhatsApp: 03364446881</p>`
     };
