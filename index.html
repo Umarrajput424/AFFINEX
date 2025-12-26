@@ -6,83 +6,59 @@
     <title>AFFINEX | Luxury Marketplace</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
-        :root {
-            --gold: #C5A059;
-            --dark: #0F0F0F;
-            --white: #FFFFFF;
-            --grey: #F9F9F9;
-            --green: #27ae60;
-            --red: #e74c3c;
-        }
-
+        :root { --gold: #C5A059; --dark: #0F0F0F; --white: #FFFFFF; --grey: #F9F9F9; --green: #27ae60; --red: #e74c3c; }
         * { box-sizing: border-box; scroll-behavior: smooth; }
         body { font-family: 'Inter', sans-serif; margin: 0; background-color: var(--grey); color: var(--dark); overflow-x: hidden; }
 
-        /* --- NAVIGATION --- */
         header { position: sticky; top: 0; z-index: 9999; background: var(--dark); border-bottom: 1px solid #333; }
         nav { padding: 15px 5%; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 15px; }
         .logo { font-size: 1.5rem; font-weight: 900; color: var(--gold); letter-spacing: 3px; text-transform: uppercase; text-decoration: none; }
-        
         .search-box { flex: 1; min-width: 200px; max-width: 450px; }
-        .search-box input { width: 100%; padding: 10px 20px; border-radius: 25px; border: 1px solid #444; outline: none; background: #1a1a1a; color: white; font-size: 0.9rem; }
-        .search-box input:focus { border-color: var(--gold); }
+        .search-box input { width: 100%; padding: 10px 20px; border-radius: 25px; border: 1px solid #444; outline: none; background: #1a1a1a; color: white; }
+        .cart-trigger { background: var(--gold); color: var(--dark); padding: 8px 18px; border-radius: 5px; font-weight: bold; cursor: pointer; border: none; }
 
-        .cart-trigger { background: var(--gold); color: var(--dark); padding: 8px 18px; border-radius: 5px; font-weight: bold; cursor: pointer; border: none; position: relative; z-index: 10001; }
+        .category-bar { background: #151515; padding: 12px 5%; display: flex; justify-content: center; gap: 25px; border-bottom: 1px solid #222; }
+        .cat-link { color: #888; text-decoration: none; font-size: 0.85rem; font-weight: bold; cursor: pointer; text-transform: uppercase; }
+        .cat-link.active { color: var(--gold); border-bottom: 2px solid var(--gold); }
 
-        .category-bar { background: #151515; padding: 12px 5%; display: flex; justify-content: center; gap: 25px; overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid #222; position: relative; z-index: 10000; }
-        .cat-link { color: #888; text-decoration: none; font-size: 0.85rem; font-weight: bold; cursor: pointer; text-transform: uppercase; white-space: nowrap; transition: 0.3s; padding-bottom: 5px; position: relative; z-index: 10001; }
-        .cat-link:hover, .cat-link.active { color: var(--gold); border-bottom: 2px solid var(--gold); }
+        .hero { height: 40vh; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=2070') center/cover; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: var(--white); }
+        .hero h1 { font-size: 2.5rem; margin: 0; letter-spacing: 5px; }
 
-        /* --- HERO --- */
-        .hero { height: 45vh; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=2070') center/cover; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: var(--white); padding: 0 20px; position: relative; z-index: 1; }
-        .hero h1 { font-size: clamp(2rem, 6vw, 3.5rem); margin: 0; text-transform: uppercase; letter-spacing: 5px; margin-bottom: 15px; }
-        .hero p { font-size: 1rem; color: var(--gold); letter-spacing: 2px; margin-bottom: 25px; }
-        .hero-btn { background: var(--gold); color: var(--dark); padding: 15px 35px; border-radius: 30px; text-decoration: none; font-weight: bold; text-transform: uppercase; font-size: 0.9rem; transition: 0.3s; }
-
-        /* --- GRID --- */
-        .container { max-width: 1200px; margin: -50px auto 60px; padding: 0 20px; position: relative; z-index: 10; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; justify-content: center; }
-
-        .card { background: var(--white); border-radius: 12px; overflow: hidden; border: 1px solid #eee; transition: 0.4s; box-shadow: 0 15px 35px rgba(0,0,0,0.1); display: flex; flex-direction: column; position: relative; }
-        .card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(197, 160, 89, 0.2); }
-        .badge { position: absolute; top: 15px; left: 15px; background: var(--red); color: white; padding: 5px 10px; font-size: 0.7rem; font-weight: bold; border-radius: 4px; z-index: 5; text-transform: uppercase; }
-        .card img { width: 100%; height: 320px; object-fit: cover; }
-        .card-body { padding: 25px; text-align: center; flex-grow: 1; }
-        .product-tagline { color: var(--green); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 5px; display: block; }
-        .price { font-size: 1.8rem; font-weight: 800; margin: 10px 0; }
+        .container { max-width: 1200px; margin: -40px auto 60px; padding: 0 20px; position: relative; z-index: 10; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
+        .card { background: var(--white); border-radius: 12px; overflow: hidden; transition: 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
+        .card img { width: 100%; height: 300px; object-fit: cover; cursor: pointer; }
+        .card-body { padding: 20px; text-align: center; }
+        .price { font-size: 1.6rem; font-weight: 800; margin: 10px 0; color: var(--dark); }
         
-        /* RESTORED DETAILS LIST STYLE */
-        .details-list { text-align: left; margin: 15px 0; padding: 0; list-style: none; color: #555; border-top: 1px solid #eee; padding-top: 15px; font-size: 0.85rem; }
+        .details-list { text-align: left; margin: 15px 0; padding: 10px 0; border-top: 1px solid #eee; font-size: 0.85rem; list-style: none; color: #555; }
         .details-list li { margin-bottom: 5px; }
-        
-        .trust-info { display: flex; justify-content: center; gap: 15px; margin-top: 15px; padding-top: 10px; border-top: 1px dashed #ddd; font-size: 0.75rem; color: #777; font-weight: 600; }
+        .view-more { color: var(--gold); font-size: 0.75rem; font-weight: bold; cursor: pointer; text-decoration: underline; margin-bottom: 10px; display: block; }
+        .trust-info { display: flex; justify-content: center; gap: 10px; font-size: 0.7rem; color: #777; font-weight: bold; border-top: 1px dashed #ddd; padding-top: 10px; }
 
-        .btn-group { display: flex; gap: 10px; margin-top: 20px; position: relative; z-index: 50; }
-        .buy-btn { flex: 2; background: var(--dark); color: white; border: none; padding: 14px; border-radius: 8px; font-weight: 700; cursor: pointer; text-transform: uppercase; }
-        .add-btn { flex: 1; background: white; color: var(--dark); border: 2px solid var(--dark); padding: 14px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+        .btn-group { display: flex; gap: 10px; margin-top: 15px; }
+        .buy-btn { flex: 2; background: var(--dark); color: white; border: none; padding: 12px; border-radius: 6px; font-weight: 700; cursor: pointer; }
+        .add-btn { flex: 1; background: white; border: 2px solid var(--dark); padding: 12px; border-radius: 6px; cursor: pointer; }
 
-        /* --- MODALS --- */
-        .modal { display: none; position: fixed; z-index: 20000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); overflow-y: auto; padding: 20px 0; }
-        .modal-content { background: var(--white); max-width: 480px; margin: auto; border-radius: 15px; overflow: hidden; position: relative; border: 2px solid var(--gold); }
-        .modal-header { background:var(--dark); color:var(--gold); padding:20px; text-align:center; position: relative; }
-        .modal-body { padding: 15px 25px 30px; }
-        input, textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 10px; }
-        .form-label { font-size:0.65rem; font-weight:bold; color:var(--gold); text-transform:uppercase; display: block; margin-top: 10px; }
-
-        /* --- FOOTERS & SOCIALS --- */
-        .social-section { background: #1a1a1a; padding: 30px 0; text-align: center; border-top: 1px solid #333; margin-top: 50px; }
-        .social-icons { display: flex; justify-content: center; gap: 25px; }
-        .social-icon { color: white; text-decoration: none; font-size: 1.2rem; display: flex; flex-direction: column; align-items: center; gap: 5px; }
-        .social-icon span { font-size: 0.7rem; font-weight: bold; text-transform: uppercase; }
-
-        .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; padding: 20px; background: #111; }
-        .f-link { color: #888; text-decoration: none; font-size: 0.75rem; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
-        .f-link:hover { color: var(--gold); }
-        footer { background: var(--dark); color: #444; padding: 20px 0; text-align: center; font-size: 0.75rem; border-top: 1px solid #222; }
-
+        /* CART SIDEBAR */
         #cartSidebar { position: fixed; right: -100%; top: 0; width: 340px; height: 100%; background: white; z-index: 11000; transition: 0.4s; box-shadow: -5px 0 15px rgba(0,0,0,0.2); padding: 25px; overflow-y: auto; }
         #cartSidebar.active { right: 0; }
-        .whatsapp-float { position: fixed; bottom: 20px; right: 20px; background: var(--gold); color: var(--dark); width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 24px; z-index: 15000; text-decoration: none; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        .cart-item { display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+
+        /* MODALS */
+        .modal { display: none; position: fixed; z-index: 20000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); overflow-y: auto; padding: 20px; }
+        .modal-content { background: white; max-width: 500px; margin: auto; border-radius: 15px; overflow: hidden; position: relative; }
+        .modal-header { background: var(--dark); color: var(--gold); padding: 15px; text-align: center; font-weight: bold; }
+        .gallery-box { padding: 15px; display: flex; flex-direction: column; gap: 10px; }
+        .gallery-box img { width: 100%; border-radius: 8px; border: 1px solid #eee; }
+
+        /* FOOTER */
+        .social-section { background: #1a1a1a; padding: 30px 0; text-align: center; color: white; border-top: 1px solid #333; margin-top: 50px;}
+        .footer-links { background: #111; padding: 20px; display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; }
+        .f-link { color: #888; text-decoration: none; font-size: 0.8rem; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
+        .f-link:hover { color: var(--gold); }
+        footer { background: var(--dark); color: #555; padding: 20px; text-align: center; font-size: 0.7rem; border-top: 1px solid #222; }
+        .whatsapp-float { position: fixed; bottom: 20px; right: 20px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 30px; z-index: 15000; text-decoration: none; }
     </style>
 </head>
 <body>
@@ -90,16 +66,14 @@
 <header>
     <nav>
         <a href="#" class="logo">AFFINEX</a>
-        <div class="search-box">
-            <input type="text" id="productSearch" placeholder="Search luxury products..." onkeyup="searchProducts()">
-        </div>
+        <div class="search-box"><input type="text" id="pSearch" placeholder="Search..." onkeyup="search()"></div>
         <button class="cart-trigger" onclick="toggleCart()">🛒 CART (<span id="cart-count">0</span>)</button>
     </nav>
     <div class="category-bar">
-        <span class="cat-link active" onclick="filterCategory('all', this)">All Items</span>
-        <span class="cat-link" onclick="filterCategory('watch', this)">Watches</span>
-        <span class="cat-link" onclick="filterCategory('electronics', this)">Electronics</span>
-        <span class="cat-link" onclick="filterCategory('fashion', this)">Fashion</span>
+        <span class="cat-link active" onclick="filter('all', this)">All Items</span>
+        <span class="cat-link" onclick="filter('watch', this)">Watches</span>
+        <span class="cat-link" onclick="filter('electronics', this)">Electronics</span>
+        <span class="cat-link" onclick="filter('fashion', this)">Fashion</span>
     </div>
 </header>
 
@@ -108,180 +82,153 @@
         <h3 style="margin:0">YOUR BAG</h3>
         <span style="cursor:pointer; font-size:1.5rem;" onclick="toggleCart()">✕</span>
     </div>
-    <div id="cartItems"></div>
-    <div id="cartFooter" style="display:none; margin-top:20px;">
+    <div id="cartItems" style="margin-top:20px;"></div>
+    <div id="cartFooter" style="display:none; margin-top:20px; border-top: 2px solid #eee; padding-top: 15px;">
         <div style="display:flex; justify-content:space-between; font-weight:bold;"><span>Total:</span><span id="total-price"></span></div>
-        <button onclick="handleCartCheckout()" style="width:100%; background:var(--green); color:white; padding:15px; border:none; margin-top:10px; border-radius:5px; cursor:pointer; font-weight:bold;">Confirm All Items</button>
+        <button onclick="handleCartCheckout()" style="width:100%; background:var(--green); color:white; padding:15px; border:none; margin-top:15px; border-radius:5px; cursor:pointer; font-weight:bold;">CONFIRM CART ORDER</button>
     </div>
 </div>
 
-<section class="hero">
-    <h1 class="animate__animated animate__fadeInDown">Upgrade Your Lifestyle</h1>
-    <p class="animate__animated animate__fadeInUp">Premium Quality • Luxury Experience</p>
-    <a href="#productGrid" class="hero-btn">Explore Collection</a>
-</section>
+<section class="hero"><h1>AFFINEX LUXURY</h1><p style="color:var(--gold)">Premium Quality • Free Delivery</p></section>
 
 <div class="container">
     <div class="grid" id="productGrid">
         
-        <div class="card product-card" data-category="watch">
-            <div class="badge">Limited Stock</div>
-            <img src="https://uploads.onecompiler.io/43t4hdj9x/448jefz8d/1000046407.jpg">
+        <div class="card p-card" data-cat="watch">
+            <img src="https://uploads.onecompiler.io/43t4hdj9x/448jefz8d/1000046407.jpg" onclick="openGal('watch')">
             <div class="card-body">
-                <span class="product-tagline">🔥 Best Seller</span>
-                <h2 class="product-title" style="margin:0; text-transform: uppercase; font-size: 1.1rem;">Richard Skeleton Watch</h2>
+                <h2 class="p-title" style="font-size:1.1rem; margin:0;">Richard Skeleton Watch</h2>
                 <div class="price">Rs. 3,385</div>
-                
+                <span class="view-more" onclick="openGal('watch')">View All Photos</span>
                 <ul class="details-list">
                     <li>• Luxury Skeleton Design</li>
-                    <li>• Durable Silicon Strap</li>
-                    <li>• Premium Finish</li>
+                    <li>• Premium Silicon Strap</li>
                 </ul>
-
                 <div class="trust-info"><span>✅ COD Available</span><span>🚚 Free Delivery</span></div>
                 <div class="btn-group">
-                    <button class="buy-btn" onclick="openOrder('1x Richard Skeleton Watch')">BUY NOW</button>
-                    <button class="add-btn" onclick="addToCart('Richard Skeleton Watch', 3385)">+ CART</button>
+                    <button class="buy-btn" onclick="openOrder('Richard Skeleton Watch')">BUY NOW</button>
+                    <button class="add-btn" onclick="addCart('Richard Skeleton Watch', 3385)">+ Cart</button>
                 </div>
             </div>
         </div>
 
-        <div class="card product-card" data-category="electronics">
-            <img src="https://uploads.onecompiler.io/43t4hdj9x/448ky3fmn/1000046559.jpg">
+        <div class="card p-card" data-cat="electronics">
+            <img src="https://uploads.onecompiler.io/43t4hdj9x/448ky3fmn/1000046559.jpg" onclick="openGal('kbd')">
             <div class="card-body">
-                <span class="product-tagline">✨ Work From Anywhere</span>
-                <h2 class="product-title" style="margin:0; text-transform: uppercase; font-size: 1.1rem;">Bluetooth Keyboard & Mouse</h2>
+                <h2 class="p-title" style="font-size:1.1rem; margin:0;">Keyboard & Mouse Set</h2>
                 <div class="price">Rs. 2,450</div>
-                
+                <span class="view-more" onclick="openGal('kbd')">View All Photos</span>
                 <ul class="details-list">
-                    <li>• Slim Rechargeable Design</li>
-                    <li>• Compatible with iOS/Android/PC</li>
-                    <li>• Silent Keys</li>
+                    <li>• Bluetooth Connectivity</li>
+                    <li>• Rechargeable & Silent</li>
                 </ul>
-
                 <div class="trust-info"><span>✅ COD Available</span><span>🚚 Free Delivery</span></div>
                 <div class="btn-group">
-                    <button class="buy-btn" onclick="openOrder('1x Bluetooth Keyboard & Mouse')">BUY NOW</button>
-                    <button class="add-btn" onclick="addToCart('Bluetooth Keyboard & Mouse', 2450)">+ CART</button>
+                    <button class="buy-btn" onclick="openOrder('Keyboard & Mouse Set')">BUY NOW</button>
+                    <button class="add-btn" onclick="addCart('Keyboard & Mouse Set', 2450)">+ Cart</button>
                 </div>
             </div>
         </div>
 
-        <div class="card product-card" data-category="fashion">
-            <img src="https://uploads.onecompiler.io/43t4hdj9x/448ncgpc4/1000046775.jpg">
+        <div class="card p-card" data-cat="fashion">
+            <img src="https://uploads.onecompiler.io/43t4hdj9x/448ncgpc4/1000046775.jpg" onclick="openGal('wallet')">
             <div class="card-body">
-                <span class="product-tagline">💼 Luxury Leather</span>
-                <h2 class="product-title" style="margin:0; text-transform: uppercase; font-size: 1.1rem;">Badenroo Luxury Wallet</h2>
+                <h2 class="p-title" style="font-size:1.1rem; margin:0;">Badenroo Luxury Wallet</h2>
                 <div class="price">Rs. 1,850</div>
-                
+                <span class="view-more" onclick="openGal('wallet')">View All Photos</span>
                 <ul class="details-list">
                     <li>• High Quality Flexible Leather</li>
-                    <li>• Multi-Card Slot Capacity</li>
-                    <li>• Elegant Slim Profile</li>
+                    <li>• Multi-Card Slots</li>
                 </ul>
-
                 <div class="trust-info"><span>✅ Men's Choice</span><span>🚚 Free Delivery</span></div>
                 <div class="btn-group">
-                    <button class="buy-btn" onclick="openOrder('1x Badenroo Luxury Wallet')">BUY NOW</button>
-                    <button class="add-btn" onclick="addToCart('Badenroo Luxury Wallet', 1850)">+ CART</button>
+                    <button class="buy-btn" onclick="openOrder('Badenroo Luxury Wallet')">BUY NOW</button>
+                    <button class="add-btn" onclick="addCart('Badenroo Luxury Wallet', 1850)">+ Cart</button>
                 </div>
             </div>
         </div>
+
+    </div>
+</div>
+
+<div id="galModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span id="galTitle">Product Gallery</span>
+            <span style="float:right; cursor:pointer" onclick="closeModal('galModal')">✕</span>
+        </div>
+        <div class="gallery-box" id="galImages"></div>
+        <button class="buy-btn" style="width:90%; margin: 15px auto; display:block;" onclick="closeModal('galModal'); openOrder(document.getElementById('galTitle').innerText)">Order Now</button>
     </div>
 </div>
 
 <div id="orderModal" class="modal">
     <div class="modal-content">
-        <div class="modal-header">
-            <h2 style="margin:0; text-transform:uppercase; font-size:1.1rem;">Order Details</h2>
-            <span style="cursor:pointer; position:absolute; right:15px; top:15px;" onclick="document.getElementById('orderModal').style.display='none'">✕</span>
-        </div>
-        <div style="background:#fcf8f0; padding:10px; border: 1px dashed var(--gold); text-align:center; margin: 10px 25px;">
-            <strong id="order-label" style="display:block; font-size:0.85rem;"></strong>
-        </div>
-        <div class="modal-body">
-            <form id="orderForm" action="https://formspree.io/f/mrezvybv" method="POST" onsubmit="return handleFormSubmit()">
-                <input type="hidden" name="Order_Summary" id="hidden_product">
-                <div style="display:flex; gap:10px;">
-                    <div style="flex:1;"><span class="form-label">First Name</span><input type="text" name="First_Name" required></div>
-                    <div style="flex:1;"><span class="form-label">Last Name</span><input type="text" name="Last_Name" required></div>
-                </div>
-                <div style="display:flex; gap:10px;">
-                    <div style="flex:1;"><span class="form-label">WhatsApp</span><input type="tel" name="WhatsApp" required></div>
-                    <div style="flex:1;"><span class="form-label">City</span><input type="text" name="City" required></div>
-                </div>
-                <span class="form-label">Address</span><textarea name="Address" rows="3" required></textarea>
-                <button type="submit" style="width:100%; background:var(--dark); color:var(--gold); padding:16px; border-radius:10px; font-weight:900; cursor:pointer;">Confirm Order (COD)</button>
+        <div class="modal-header">CONFIRM ORDER<span style="float:right; cursor:pointer" onclick="closeModal('orderModal')">✕</span></div>
+        <div style="padding:20px;">
+            <p id="order-label" style="text-align:center; font-weight:bold; color:var(--gold); margin-bottom:15px;"></p>
+            <form action="https://formspree.io/f/mrezvybv" method="POST">
+                <input type="hidden" name="Order_Summary" id="hidden_p">
+                <input type="text" name="Name" placeholder="Full Name" required style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;">
+                <input type="tel" name="WhatsApp" placeholder="WhatsApp Number" required style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;">
+                <input type="text" name="City" placeholder="City" required style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;">
+                <textarea name="Address" placeholder="Full Home Address" required style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px; height:80px;"></textarea>
+                <button type="submit" style="width:100%; background:var(--dark); color:var(--gold); padding:15px; border:none; font-weight:bold; cursor:pointer; border-radius:5px; font-size:1rem;">CONFIRM COD ORDER</button>
             </form>
         </div>
     </div>
 </div>
 
-<div id="policyModal" class="modal"><div class="modal-content" style="max-width: 600px;"><div class="modal-header"><h3 id="policyTitle" style="margin:0;">POLICY</h3><span style="cursor:pointer; position:absolute; right:20px; top:20px;" onclick="document.getElementById('policyModal').style.display='none'">✕</span></div><div id="policyText" style="padding:30px; line-height:1.6;"></div></div></div>
-
 <div class="social-section">
-    <div class="social-icons">
-        <a href="https://www.tiktok.com/@affinex_67" class="social-icon" target="_blank">🎵<span>TikTok</span></a>
-        <a href="https://www.instagram.com/affi_nex67" class="social-icon" target="_blank">📸<span>Instagram</span></a>
-        <a href="https://youtube.com/@affinex_222" class="social-icon" target="_blank">📺<span>YouTube</span></a>
+    <p style="font-weight:bold; letter-spacing: 2px;">FOLLOW US</p>
+    <div style="display:flex; justify-content:center; gap:25px;">
+        <a href="https://www.tiktok.com/@affinex_67" target="_blank" style="color:white; text-decoration:none; font-size: 0.8rem;">TIKTOK</a>
+        <a href="https://www.instagram.com/affi_nex67" target="_blank" style="color:white; text-decoration:none; font-size: 0.8rem;">INSTAGRAM</a>
+        <a href="https://youtube.com/@affinex_222" target="_blank" style="color:white; text-decoration:none; font-size: 0.8rem;">YOUTUBE</a>
     </div>
 </div>
 
 <div class="footer-links">
-    <span class="f-link" onclick="openPolicy('about')">About Us</span>
-    <span class="f-link" onclick="openPolicy('shipping')">Shipping</span>
-    <span class="f-link" onclick="openPolicy('return')">Returns</span>
-    <span class="f-link" onclick="openPolicy('faq')">FAQs</span>
+    <span class="f-link" onclick="alert('Fast 2-5 Day Free Delivery across Pakistan!')">Shipping Policy</span>
+    <span class="f-link" onclick="alert('7-Day Replacement Policy for Damaged Items.')">Return Policy</span>
+    <span class="f-link" onclick="alert('WhatsApp: 03364446881 for 24/7 Support')">Contact Us</span>
 </div>
 
-<footer><p>&copy; 2025 AFFINEX | Premium Luxury</p></footer>
-<a href="https://wa.me/923364446881" class="whatsapp-float" target="_blank">📞</a>
+<footer>&copy; 2025 AFFINEX LUXURY | All Rights Reserved</footer>
+<a href="https://wa.me/923364446881" target="_blank" class="whatsapp-float">W</a>
 
 <script>
-    let cart = [];
-    const policies = {
-        about: `<h3>Vision</h3><p>AFFINEX provides top-tier products with elite quality control.</p>`,
-        shipping: `<h3>Shipping</h3><p>2-5 days nationwide. We offer <b>Free Delivery</b> on all orders!</p>`,
-        return: `<h3>Returns</h3><p>7-Day exchange warranty for damaged items.</p>`,
-        faq: `<h3>Support</h3><p>WhatsApp: 03364446881</p>`
+    const imgs = {
+        watch: ["https://uploads.onecompiler.io/43t4hdj9x/448jefz8d/1000046407.jpg", "https://uploads.onecompiler.io/43t4hdj9x/448pxm8yg/1000046409.jpg", "https://uploads.onecompiler.io/43t4hdj9x/448pxm8yg/1000046408.jpg"],
+        wallet: ["https://uploads.onecompiler.io/43t4hdj9x/448ncgpc4/1000046775.jpg", "https://uploads.onecompiler.io/43t4hdj9x/448pxm8yg/1000046777.jpg", "https://uploads.onecompiler.io/43t4hdj9x/448ncgpc4/1000046780.jpg", "https://uploads.onecompiler.io/43t4hdj9x/448ncgpc4/1000046781.jpg", "https://uploads.onecompiler.io/43t4hdj9x/448ncgpc4/1000046783.jpg"],
+        kbd: ["https://uploads.onecompiler.io/43t4hdj9x/448ky3fmn/1000046559.jpg", "https://uploads.onecompiler.io/43t4hdj9x/448ky3fmn/1000046580.jpg", "https://uploads.onecompiler.io/43t4hdj9x/448ky3fmn/1000046561.jpg"]
     };
 
-    function searchProducts() {
-        let input = document.getElementById('productSearch').value.toLowerCase();
-        let cards = document.getElementsByClassName('product-card');
-        for (let i = 0; i < cards.length; i++) {
-            let title = cards[i].querySelector('.product-title').innerText.toLowerCase();
-            cards[i].style.display = (title.indexOf(input) > -1) ? "flex" : "none";
-        }
-    }
-
-    function filterCategory(cat, element) {
-        document.querySelectorAll('.cat-link').forEach(link => link.classList.remove('active'));
-        if(element) element.classList.add('active');
-        let cards = document.getElementsByClassName('product-card');
-        for (let i = 0; i < cards.length; i++) {
-            let pCat = cards[i].getAttribute('data-category');
-            cards[i].style.display = (cat === 'all' || pCat === cat) ? "flex" : "none";
-        }
-    }
+    let cart = [];
 
     function toggleCart() { document.getElementById('cartSidebar').classList.toggle('active'); }
-    function addToCart(name, price) { cart.push({name, price}); updateCart(); toggleCart(); }
-    function removeFromCart(index) { cart.splice(index, 1); updateCart(); }
+
+    function addCart(name, price) {
+        cart.push({name, price});
+        updateCart();
+        toggleCart();
+    }
 
     function updateCart() {
         const itemsDiv = document.getElementById('cartItems');
-        document.getElementById('cart-count').innerText = cart.length;
+        const countSpan = document.getElementById('cart-count');
+        countSpan.innerText = cart.length;
+        
         if(cart.length === 0) {
-            itemsDiv.innerHTML = '<p style="text-align:center; margin-top:50px;">Empty</p>';
+            itemsDiv.innerHTML = '<p style="text-align:center; color:#888;">Your bag is empty.</p>';
             document.getElementById('cartFooter').style.display = 'none';
         } else {
             let total = 0;
             itemsDiv.innerHTML = cart.map((item, index) => {
                 total += item.price;
-                return `<div style="display:flex; justify-content:space-between; margin-bottom:10px;">
-                    <div style="font-size:0.8rem;">${item.name}</div>
-                    <span style="color:var(--red); cursor:pointer;" onclick="removeFromCart(${index})">X</span>
+                return `<div class="cart-item">
+                    <span style="font-size:0.85rem;">${item.name}</span>
+                    <span style="color:var(--red); cursor:pointer; font-weight:bold;" onclick="removeFromCart(${index})">✕</span>
                 </div>`;
             }).join('');
             document.getElementById('total-price').innerText = "Rs. " + total;
@@ -289,25 +236,54 @@
         }
     }
 
+    function removeFromCart(index) {
+        cart.splice(index, 1);
+        updateCart();
+    }
+
     function handleCartCheckout() {
         let summary = cart.map(item => item.name).join(', ');
-        openOrder(`Cart: ${summary} (Total: ${document.getElementById('total-price').innerText})`);
+        openOrder(`Cart Items: ${summary} (Total: ${document.getElementById('total-price').innerText})`);
     }
 
-    function openOrder(product) {
-        document.getElementById("orderModal").style.display = "block";
-        document.getElementById("hidden_product").value = product;
-        document.getElementById("order-label").innerText = product;
+    function openGal(id) {
+        const box = document.getElementById('galImages');
+        const titles = {watch: "Richard Skeleton Watch", wallet: "Badenroo Luxury Wallet", kbd: "Keyboard & Mouse Set"};
+        document.getElementById('galTitle').innerText = titles[id];
+        box.innerHTML = imgs[id].map(src => `<img src="${src}">`).join('');
+        document.getElementById('galModal').style.display = 'block';
     }
 
-    function openPolicy(type) {
-        document.getElementById('policyTitle').innerText = type.toUpperCase();
-        document.getElementById('policyText').innerHTML = policies[type];
-        document.getElementById('policyModal').style.display = "block";
+    function openOrder(name) {
+        document.getElementById('order-label').innerText = name;
+        document.getElementById('hidden_p').value = name;
+        document.getElementById('orderModal').style.display = 'block';
     }
 
-    function handleFormSubmit() { alert("Order Received!"); return true; }
-    window.onclick = function(e) { if(e.target.className === 'modal') { document.querySelectorAll('.modal').forEach(m => m.style.display = "none"); } }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+    function search() {
+        let val = document.getElementById('pSearch').value.toLowerCase();
+        document.querySelectorAll('.p-card').forEach(c => {
+            let t = c.querySelector('.p-title').innerText.toLowerCase();
+            c.style.display = t.includes(val) ? "flex" : "none";
+        });
+    }
+
+    function filter(cat, el) {
+        document.querySelectorAll('.cat-link').forEach(l => l.classList.remove('active'));
+        el.classList.add('active');
+        document.querySelectorAll('.p-card').forEach(c => {
+            c.style.display = (cat === 'all' || c.getAttribute('data-cat') === cat) ? "flex" : "none";
+        });
+    }
+
+    window.onclick = function(event) {
+        if (event.target.className === 'modal') {
+            document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
+        }
+    }
 </script>
+
 </body>
 </html>
