@@ -3,76 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AFFINEX | Official Luxury Store</title>
+    <title>AFFINEX | Luxury Boutique Store</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
-        :root { --gold: #C5A059; --dark: #000000; --white: #FFFFFF; --bg: #F8F8F8; --red: #E74C3C; --green: #2ECC71; }
-        * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { margin: 0; background: var(--bg); color: var(--dark); overflow-x: hidden; }
+        :root { --gold: #C5A059; --dark: #000000; --white: #FFFFFF; --bg: #F8F8F8; --green: #27ae60; }
+        * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
+        body { background: var(--bg); color: var(--dark); overflow-x: hidden; }
 
-        header { background: var(--dark); padding: 15px 5%; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 9999; box-shadow: 0 5px 20px rgba(0,0,0,0.5); }
-        .logo { color: var(--gold); font-size: 1.6rem; font-weight: 900; letter-spacing: 3px; text-decoration: none; cursor: pointer; animation: fadeInDown 1s; }
-        .search-bar { flex: 1; margin: 0 15px; min-width: 200px; }
-        .search-bar input { width: 100%; padding: 10px 20px; border-radius: 25px; border: none; background: #222; color: white; border: 1px solid #444; outline: none; transition: 0.3s; }
-        .search-bar input:focus { border-color: var(--gold); box-shadow: 0 0 10px rgba(197, 160, 89, 0.3); }
+        /* --- LUXURY HEADER --- */
+        header { background: var(--dark); padding: 15px 5%; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 9999; box-shadow: 0 5px 20px rgba(0,0,0,0.5); }
+        .logo { color: var(--gold); font-size: 1.8rem; font-weight: 900; letter-spacing: 4px; text-decoration: none; cursor: pointer; }
+        .search-bar { flex: 1; margin: 0 20px; max-width: 400px; }
+        .search-bar input { width: 100%; padding: 10px 20px; border-radius: 25px; border: 1px solid #444; background: #111; color: white; outline: none; transition: 0.3s; }
+        .search-bar input:focus { border-color: var(--gold); }
         .bag-btn { background: var(--gold); color: black; border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        .bag-btn:hover { transform: scale(1.05); background: #b08d4a; }
 
-        .cats { background: #111; display: flex; gap: 10px; padding: 12px 5%; overflow-x: auto; white-space: nowrap; border-bottom: 1px solid #333; }
-        .cat-item { color: #888; font-size: 0.8rem; font-weight: bold; cursor: pointer; text-transform: uppercase; padding: 8px 15px; border-radius: 20px; transition: 0.3s; }
-        .cat-item.active { color: var(--dark); background: var(--gold); }
+        /* --- CATEGORY BAR --- */
+        .cats { background: #111; display: flex; gap: 10px; padding: 12px 5%; overflow-x: auto; white-space: nowrap; border-bottom: 1px solid #333; scrollbar-width: none; }
+        .cat-item { color: #888; font-size: 0.75rem; font-weight: bold; cursor: pointer; text-transform: uppercase; padding: 8px 18px; border-radius: 20px; transition: 0.3s; border: 1px solid #333; }
+        .cat-item.active { color: var(--dark); background: var(--gold); border-color: var(--gold); }
 
-        .hero { height: 25vh; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=2070') center/cover; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: white; }
-        .hero h1 { animation: zoomIn 1s; margin: 0; }
-        .hero p { animation: fadeInUp 1.2s; }
+        /* --- HERO --- */
+        .hero { height: 30vh; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=2070') center/cover; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: white; border-bottom: 4px solid var(--gold); }
+        .hero h1 { font-size: 2.5rem; letter-spacing: 5px; }
 
-        .container { max-width: 1200px; margin: 30px auto; padding: 0 15px; min-height: 50vh; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; }
+        /* --- PRODUCT GRID --- */
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 15px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
         
-        .card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); display: flex; flex-direction: column; transition: 0.4s ease; opacity: 0; transform: translateY(20px); }
-        .card.show { opacity: 1; transform: translateY(0); }
+        .card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: 0.4s; position: relative; display: flex; flex-direction: column; }
         .card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0,0,0,0.15); }
-        .card img { width: 100%; height: 300px; object-fit: cover; cursor: pointer; transition: 0.5s; }
-        .card:hover img { transform: scale(1.05); }
+        .card img { width: 100%; height: 320px; object-fit: cover; cursor: pointer; }
         
-        .card-content { padding: 20px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; }
-        .p-name { font-weight: bold; margin-bottom: 8px; font-size: 1.1rem; }
-        .p-price { font-size: 1.4rem; font-weight: 800; color: var(--dark); margin-bottom: 5px; }
-        .free-tag { color: var(--green); font-size: 0.85rem; font-weight: bold; margin-bottom: 15px; }
+        .card-content { padding: 20px; text-align: center; flex-grow: 1; }
+        .p-name { font-weight: bold; font-size: 1.1rem; margin-bottom: 10px; height: 45px; overflow: hidden; }
+        .p-price { font-size: 1.5rem; font-weight: 800; color: var(--gold); margin-bottom: 5px; }
+        .free-tag { color: var(--green); font-size: 0.8rem; font-weight: bold; margin-bottom: 15px; display: block; }
 
-        .btn-box { display: flex; gap: 10px; margin-top: auto; }
-        .buy-now { flex: 2; background: var(--dark); color: white; border: none; padding: 14px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        .buy-now:hover { background: #333; }
-        .add-cart { flex: 1; background: white; border: 2px solid var(--dark); padding: 14px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        .add-cart:hover { background: #eee; }
+        .btn-box { display: flex; gap: 10px; }
+        .buy-now { flex: 2; background: var(--dark); color: var(--gold); border: none; padding: 12px; border-radius: 6px; font-weight: bold; cursor: pointer; text-transform: uppercase; }
+        .add-cart { flex: 1; background: white; border: 2px solid var(--dark); padding: 12px; border-radius: 6px; cursor: pointer; font-weight: bold; }
 
-        .social-sec { background: #111; color: white; padding: 50px 20px; text-align: center; margin-top: 50px; }
-        .social-icons { display: flex; justify-content: center; gap: 15px; margin-top: 20px; flex-wrap: wrap; }
-        .social-icons a { color: var(--gold); text-decoration: none; border: 1px solid #444; padding: 10px 20px; border-radius: 25px; font-size: 0.85rem; transition: 0.3s; }
-        .social-icons a:hover { background: var(--gold); color: black; border-color: var(--gold); }
-        
-        footer { background: black; color: #666; padding: 40px 20px; text-align: center; font-size: 0.8rem; border-top: 1px solid #222; }
+        /* --- FOOTER --- */
+        footer { background: #000; color: #fff; padding: 50px 5% 20px; border-top: 3px solid var(--gold); margin-top: 50px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto; text-align: left; }
+        .footer-col h4 { color: var(--gold); margin-bottom: 20px; letter-spacing: 2px; }
+        .footer-col p, .footer-col a { color: #888; text-decoration: none; font-size: 0.9rem; line-height: 1.8; display: block; }
+        .social-links { display: flex; gap: 10px; margin-top: 15px; }
+        .social-links a { background: #111; border: 1px solid #333; padding: 8px 15px; border-radius: 5px; color: var(--gold); font-size: 0.7rem; font-weight: bold; }
 
-        #appPopup { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 20000; display: none; justify-content: center; align-items: center; padding: 20px; animation: fadeIn 0.5s; }
-        .app-box { background: white; width: 100%; max-width: 360px; border-radius: 20px; text-align: center; padding: 35px; border: 2px solid var(--gold); position: relative; animation: zoomIn 0.4s; }
-        .download-btn { background: var(--dark); color: var(--gold); text-decoration: none; padding: 15px 30px; border-radius: 30px; font-weight: bold; display: inline-block; margin-top: 20px; }
-
-        .cart-sidebar { position: fixed; top: 0; right: -350px; width: 350px; height: 100%; background: white; z-index: 11000; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: -10px 0 30px rgba(0,0,0,0.2); }
+        /* --- OVERLAYS & MODALS --- */
+        .details-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 10000; display: none; overflow-y: auto; }
+        .cart-sidebar { position: fixed; top: 0; right: -100%; width: 100%; max-width: 350px; height: 100%; background: white; z-index: 11000; transition: 0.4s; box-shadow: -10px 0 30px rgba(0,0,0,0.2); display: flex; flex-direction: column; }
         .cart-sidebar.active { right: 0; }
-        .details-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 10000; display: none; overflow-y: auto; animation: slideInUp 0.5s; }
-        .wa-float { position: fixed; bottom: 25px; right: 25px; background: var(--gold); color: black; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 30px; text-decoration: none; z-index: 9000; box-shadow: 0 5px 20px rgba(197, 160, 89, 0.5); font-weight: 900; transition: 0.3s; animation: pulse 2s infinite; }
-        .wa-float:hover { transform: scale(1.1); }
+        
+        #orderModal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 20000; display: none; justify-content: center; align-items: center; padding: 15px; }
+        .order-box { background: white; width: 100%; max-width: 400px; border-radius: 15px; overflow: hidden; }
 
-        #orderModal { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:15000; display:none; justify-content:center; align-items:center; }
-        .order-box { background:white; width:92%; max-width:400px; border-radius:15px; overflow:hidden; animation: fadeInUp 0.4s; }
-        .order-form input, .order-form textarea { width:100%; padding:12px; margin-bottom:12px; border:1px solid #ddd; border-radius:8px; outline:none; transition: 0.3s; }
-        .order-form input:focus { border-color: var(--gold); }
+        /* --- WA FLOAT --- */
+        .wa-float { position: fixed; bottom: 25px; right: 25px; background: #25D366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 30px; text-decoration: none; z-index: 9000; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+
+        #appPopup { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 30000; display: none; justify-content: center; align-items: center; padding: 20px; }
+        .app-box { background: white; padding: 30px; border-radius: 20px; text-align: center; max-width: 350px; border: 2px solid var(--gold); }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo" onclick="filterCategory('all')">AFFINEX</div>
+    <div class="logo" onclick="location.reload()">AFFINEX</div>
     <div class="search-bar"><input type="text" id="searchInput" placeholder="Search for luxury..." onkeyup="searchProducts()"></div>
     <button class="bag-btn" onclick="openCart()">BAG (<span id="cart-count">0</span>)</button>
 </header>
@@ -85,79 +83,87 @@
 </div>
 
 <section class="hero">
-    <h1>AFFINEX LUXURY</h1>
-    <p style="color:var(--gold); letter-spacing:3px;">THE ELITE SHOPPING EXPERIENCE</p>
+    <h1 class="animate__animated animate__fadeInDown">AFFINEX LUXURY</h1>
+    <p class="animate__animated animate__fadeInUp" style="color:var(--gold); letter-spacing:4px; font-weight:bold;">ESTABLISHED 2025</p>
 </section>
 
 <div class="container">
     <div class="grid" id="productGrid"></div>
 </div>
 
-<section class="social-sec">
-    <p style="letter-spacing: 3px; font-weight: bold;">JOIN OUR COMMUNITY</p>
-    <div class="social-icons">
-        <a href="https://www.tiktok.com/@affinex_67" target="_blank">TIKTOK</a>
-        <a href="https://www.instagram.com/affi_nex67" target="_blank">INSTAGRAM</a>
-        <a href="https://youtube.com/@affinex_222" target="_blank">YOUTUBE</a>
-    </div>
-</section>
-
 <footer>
-    <div style="margin-bottom:15px;">
-        <span onclick="alert('Fast Delivery in 2-5 days!')" style="cursor:pointer;">Shipping Policy</span> | 
-        <span onclick="alert('7-Day Easy Return Policy')" style="cursor:pointer;">Return Policy</span>
+    <div class="footer-grid">
+        <div class="footer-col">
+            <h4>AFFINEX</h4>
+            <p>Premium quality and elite lifestyle products delivered at your doorstep across Pakistan.</p>
+        </div>
+        <div class="footer-col">
+            <h4>CUSTOMER CARE</h4>
+            <a href="#" onclick="alert('Shipping in 2-4 days')">Shipping Policy</a>
+            <a href="#" onclick="alert('7 days return policy')">Return & Exchange</a>
+            <a href="https://wa.me/923364446881">Contact Us</a>
+        </div>
+        <div class="footer-col">
+            <h4>FOLLOW US</h4>
+            <div class="social-links">
+                <a href="https://www.tiktok.com/@affinex_67">TIKTOK</a>
+                <a href="https://www.instagram.com/affi_nex67">INSTA</a>
+                <a href="https://youtube.com/@affinex_222">YT</a>
+            </div>
+        </div>
     </div>
-    <p>&copy; 2025 AFFINEX STORE | Official Luxury Brand</p>
+    <p style="margin-top:40px; border-top:1px solid #222; padding-top:20px; font-size:0.7rem;">&copy; 2025 AFFINEX | OFFICIAL LUXURY STORE</p>
 </footer>
 
-<div id="appPopup">
-    <div class="app-box">
-        <span style="position:absolute; top:15px; right:20px; cursor:pointer; font-size:1.5rem;" onclick="this.parentElement.parentElement.style.display='none'">✕</span>
-        <h2 style="margin-top:0;">AFFINEX APP</h2>
-        <p>Get exclusive deals and a faster experience on our mobile app!</p>
-        <a href="https://www.mediafire.com/file/zfob4clp9kh9mou/app-release.apk/file" target="_blank" class="download-btn">DOWNLOAD NOW</a>
+<div id="cartSide" class="cart-sidebar">
+    <div style="padding:20px; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:center; background:#000; color:#fff;">
+        <strong>MY SHOPPING BAG</strong> <span onclick="closeCart()" style="cursor:pointer; font-size:1.5rem;">✕</span>
+    </div>
+    <div id="cartList" style="flex-grow:1; overflow-y:auto; padding:15px;"></div>
+    <div id="cartBottom" style="padding:20px; border-top:2px solid #eee; display:none;">
+        <div style="display:flex; justify-content:space-between; font-weight:bold; margin-bottom:15px; font-size:1.1rem;">
+            <span>SUBTOTAL:</span><span id="cartTotal"></span>
+        </div>
+        <button onclick="checkoutCart()" style="width:100%; background:var(--gold); color:black; padding:15px; border:none; border-radius:8px; font-weight:bold; cursor:pointer; text-transform:uppercase;">Proceed to Checkout</button>
     </div>
 </div>
 
-<div id="cartSide" class="cart-sidebar">
-    <div style="padding:20px; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:center;">
-        <strong>MY BAG</strong> <span onclick="closeCart()" style="cursor:pointer; font-size:1.5rem;">✕</span>
+<div id="detailsPage" class="details-overlay">
+    <div style="padding:15px; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; background:white; z-index:10;">
+        <strong id="det-title">PRODUCT DETAILS</strong>
+        <span onclick="document.getElementById('detailsPage').style.display='none'" style="cursor:pointer; font-size:2rem; padding:0 10px;">✕</span>
     </div>
-    <div id="cartList" style="padding:15px; height:70%; overflow-y:auto;"></div>
-    <div id="cartBottom" style="padding:20px; border-top:2px solid #eee; display:none;">
-        <div style="display:flex; justify-content:space-between; font-weight:bold; margin-bottom:15px; font-size:1.1rem;">
-            <span>TOTAL:</span><span id="cartTotal"></span>
+    <div style="padding:20px; max-width:700px; margin:0 auto;">
+        <div id="det-imgs" style="margin-bottom:20px;"></div>
+        <h2 id="det-price" style="color:var(--gold); font-size:2rem; margin-bottom:10px;"></h2>
+        <p id="det-desc" style="line-height:1.7; color:#444; background:#f9f9f9; padding:20px; border-radius:10px; white-space:pre-line;"></p>
+        <div style="display:flex; gap:10px; margin-top:30px;">
+            <button id="detOrderBtn" style="flex:1; background:var(--dark); color:var(--gold); padding:20px; border:none; border-radius:10px; font-weight:bold; cursor:pointer; font-size:1.1rem;">ORDER NOW (COD)</button>
         </div>
-        <button onclick="checkoutCart()" style="width:100%; background:var(--green); color:white; padding:15px; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">CHECKOUT NOW</button>
     </div>
 </div>
 
 <div id="orderModal">
     <div class="order-box">
-        <div style="background:var(--dark); color:var(--gold); padding:15px; text-align:center; font-weight:bold;">SHIPPING DETAILS</div>
-        <form action="https://formspree.io/f/mrezvybv" method="POST" class="order-form" style="padding:20px;">
-            <p id="orderProdDisplay" style="text-align:center; font-weight:bold; color:var(--gold); font-size:0.9rem; margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:10px;"></p>
-            <input type="hidden" name="Product_Names" id="prodInp">
-            <input type="text" name="Name" placeholder="Full Name" required>
-            <input type="tel" name="WhatsApp" placeholder="WhatsApp Number" required>
-            <input type="text" name="City" placeholder="City Name" required>
-            <textarea name="Address" placeholder="Complete Address" required rows="3"></textarea>
-            <button type="submit" style="width:100%; background:var(--dark); color:var(--gold); padding:15px; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">PLACE ORDER (CASH ON DELIVERY)</button>
-            <p onclick="document.getElementById('orderModal').style.display='none'" style="text-align:center; color:red; cursor:pointer; margin-top:15px; font-size:0.8rem;">Cancel Order</p>
+        <div style="background:var(--dark); color:var(--gold); padding:15px; text-align:center; font-weight:bold; letter-spacing:2px;">SHIPPING DETAILS</div>
+        <form action="https://formspree.io/f/mrezvybv" method="POST" style="padding:25px;" onsubmit="return alert('Order Submitting...')">
+            <input type="hidden" name="Order_Details" id="prodInp">
+            <input type="text" name="Name" placeholder="Full Name" required style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #ddd; border-radius:8px;">
+            <input type="tel" name="WhatsApp" placeholder="WhatsApp Number" required style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #ddd; border-radius:8px;">
+            <input type="text" name="City" placeholder="City" required style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #ddd; border-radius:8px;">
+            <textarea name="Address" placeholder="Complete Address" required rows="3" style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #ddd; border-radius:8px;"></textarea>
+            <button type="submit" style="width:100%; background:var(--dark); color:var(--gold); padding:15px; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">CONFIRM ORDER</button>
+            <p onclick="document.getElementById('orderModal').style.display='none'" style="text-align:center; color:red; cursor:pointer; margin-top:15px; font-size:0.8rem;">Cancel</p>
         </form>
     </div>
 </div>
 
-<div id="detailsPage" class="details-overlay">
-    <div style="padding:15px; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; background:white;">
-        <strong id="det-title"></strong>
-        <span onclick="document.getElementById('detailsPage').style.display='none'" style="cursor:pointer; font-size:1.8rem;">✕</span>
-    </div>
-    <div style="padding:20px; max-width:700px; margin:0 auto;">
-        <div id="det-imgs"></div>
-        <h2 id="det-price" style="color:var(--gold);"></h2>
-        <p id="det-desc" style="line-height:1.7; color:#444; border-top:1px solid #eee; padding-top:15px; white-space: pre-line;"></p>
-        <button onclick="document.getElementById('detailsPage').style.display='none'; openOrder(document.getElementById('det-title').innerText)" style="width:100%; background:var(--dark); color:var(--gold); padding:18px; border:none; border-radius:8px; font-weight:bold; margin-top:20px; cursor:pointer;">ORDER NOW</button>
+<div id="appPopup">
+    <div class="app-box">
+        <h2>AFFINEX APP</h2>
+        <p style="margin:15px 0; color:#666;">Experience luxury shopping with our official mobile app. Fast, secure and exclusive.</p>
+        <a href="https://www.mediafire.com/file/zfob4clp9kh9mou/app-release.apk/file" target="_blank" style="background:black; color:var(--gold); text-decoration:none; padding:12px 25px; border-radius:25px; font-weight:bold; display:inline-block;">DOWNLOAD APK</a>
+        <p onclick="document.getElementById('appPopup').style.display='none'" style="margin-top:15px; cursor:pointer; font-size:0.8rem; color:red;">Close</p>
     </div>
 </div>
 
@@ -171,37 +177,65 @@
             name: "Premium Arabic Dial Watch", 
             price: 2164, 
             img: "https://uploads.onecompiler.io/43t4hdj9x/448t8n3gt/1000047220.jpg", 
-            desc: "• Material: Brass\n• Pattern: Plain Strap\n• Gender: Men's\n• Watch Case Shape: Round\n• Display Format: 12-Hour Format\n• Product Feature: Movement: Quartz\n• Number Of Pieces: 1 Pc\n• Color: Black\n• Package Includes: 1 x Analogue Watch", 
+            desc: "Luxury Arabic Dial Watch\n• Material: Premium Brass\n• Dial: Elegant Arabic Numerals\n• Movement: High-Precision Quartz\n• Gender: Men's Luxury\n• Color: Bold Black\n• Features: Water Resistant (Daily Use)\n• Package: Comes in a premium box.", 
             imgs: ["https://uploads.onecompiler.io/43t4hdj9x/448t8n3gt/1000047220.jpg", "https://uploads.onecompiler.io/43t4hdj9x/448t8n3gt/1000047221.jpg", "https://uploads.onecompiler.io/43t4hdj9x/448t8n3gt/1000047222.jpg"] 
         },
-        { id: 'w1', cat: 'Watches', name: "Richard Skeleton Watch", price: 3385, img: "https://uploads.onecompiler.io/43t4hdj9x/448jefz8d/1000046407.jpg", desc: "Premium Richard Skeleton Edition. High-quality silicon strap, transparent mechanical dial.", imgs: ["https://uploads.onecompiler.io/43t4hdj9x/448jefz8d/1000046407.jpg", "https://uploads.onecompiler.io/43t4hdj9x/448pxm8yg/1000046409.jpg", "https://uploads.onecompiler.io/43t4hdj9x/448pxm8yg/1000046408.jpg"] },
-        { id: 'e1', cat: 'Electronics', name: "Keyboard & Mouse Set", price: 2450, img: "https://uploads.onecompiler.io/43t4hdj9x/448ky3fmn/1000046559.jpg", desc: "Professional Bluetooth combo. Super slim design, compatible with iPad and Laptops.", imgs: ["https://uploads.onecompiler.io/43t4hdj9x/448ky3fmn/1000046559.jpg", "https://uploads.onecompiler.io/43t4hdj9x/448ky3fmn/1000046580.jpg", "https://uploads.onecompiler.io/43t4hdj9x/448ky3fmn/1000046561.jpg"] },
-        { id: 'f1', cat: 'Fashion', name: "Badenroo Luxury Wallet", price: 1850, img: "https://uploads.onecompiler.io/43t4hdj9x/448ncgpc4/1000046775.jpg", desc: "Classic Badenroo Leather Wallet. Multi-card slots and premium finish.", imgs: ["https://uploads.onecompiler.io/43t4hdj9x/448ncgpc4/1000046775.jpg", "https://uploads.onecompiler.io/43t4hdj9x/448pxm8yg/1000046777.jpg", "https://uploads.onecompiler.io/43t4hdj9x/448ncgpc4/1000046781.jpg"] },
-        { id: 'e2', cat: 'Electronics', name: "Electric Lint Remover", price: 2545, img: "https://uploads.onecompiler.io/43t4hdj9x/448r7fga5/1000047089.jpg", desc: "Rechargeable Lint Remover. Premium Green Package. Keeps your clothes looking new.", imgs: ["https://uploads.onecompiler.io/43t4hdj9x/448r7fga5/1000047089.jpg", "https://uploads.onecompiler.io/43t4hdj9x/448r7fga5/1000047088.jpg", "https://uploads.onecompiler.io/43t4hdj9x/448r7fga5/1000047091.jpg"] }
+        { 
+            id: 'w1', 
+            cat: 'Watches', 
+            name: "Richard Skeleton Watch", 
+            price: 3385, 
+            img: "https://uploads.onecompiler.io/43t4hdj9x/448jefz8d/1000046407.jpg", 
+            desc: "The Masterpiece Skeleton Edition.\n• High-quality silicon strap\n• Transparent mechanical see-through dial\n• Automatic self-winding feel\n• Scratch resistant glass.", 
+            imgs: ["https://uploads.onecompiler.io/43t4hdj9x/448jefz8d/1000046407.jpg", "https://uploads.onecompiler.io/43t4hdj9x/448pxm8yg/1000046409.jpg", "https://uploads.onecompiler.io/43t4hdj9x/448pxm8yg/1000046408.jpg"] 
+        },
+        { 
+            id: 'e1', 
+            cat: 'Electronics', 
+            name: "Keyboard & Mouse Set", 
+            price: 2450, 
+            img: "https://uploads.onecompiler.io/43t4hdj9x/448ky3fmn/1000046559.jpg", 
+            desc: "Wireless Productivity Set.\n• Bluetooth connectivity\n• Ultra-slim rechargeable keyboard\n• Silent click ergonomic mouse\n• Compatible with iPad, Laptops, and Android.", 
+            imgs: ["https://uploads.onecompiler.io/43t4hdj9x/448ky3fmn/1000046559.jpg", "https://uploads.onecompiler.io/43t4hdj9x/448ky3fmn/1000046580.jpg"] 
+        },
+        { 
+            id: 'f1', 
+            cat: 'Fashion', 
+            name: "Badenroo Luxury Wallet", 
+            price: 1850, 
+            img: "https://uploads.onecompiler.io/43t4hdj9x/448ncgpc4/1000046775.jpg", 
+            desc: "Classic Badenroo Leather Wallet.\n• Premium Soft Leather\n• Multi-card slots and coin pocket\n• Slim bifold luxury design.", 
+            imgs: ["https://uploads.onecompiler.io/43t4hdj9x/448ncgpc4/1000046775.jpg", "https://uploads.onecompiler.io/43t4hdj9x/448pxm8yg/1000046777.jpg"] 
+        },
+        { 
+            id: 'e2', 
+            cat: 'Electronics', 
+            name: "Electric Lint Remover", 
+            price: 2545, 
+            img: "https://uploads.onecompiler.io/43t4hdj9x/448r7fga5/1000047089.jpg", 
+            desc: "Premium Fabric Care.\n• Rechargeable heavy-duty motor\n• Safe for all types of fabrics\n• Triple blade system for fast cleaning.", 
+            imgs: ["https://uploads.onecompiler.io/43t4hdj9x/448r7fga5/1000047089.jpg", "https://uploads.onecompiler.io/43t4hdj9x/448r7fga5/1000047088.jpg"] 
+        }
     ];
 
     let cart = [];
 
     function displayProducts(items) {
         const grid = document.getElementById('productGrid');
-        grid.innerHTML = items.map((p, index) => `
-            <div class="card" style="transition-delay: ${index * 100}ms">
+        grid.innerHTML = items.map(p => `
+            <div class="card animate__animated animate__fadeInUp">
                 <img src="${p.img}" onclick="viewDetails('${p.id}')">
                 <div class="card-content">
                     <div class="p-name">${p.name}</div>
                     <div class="p-price">Rs. ${p.price}</div>
-                    <div class="free-tag">🚚 FREE DELIVERY</div>
+                    <span class="free-tag">🚚 FREE DELIVERY ALL OVER PAKISTAN</span>
                     <div class="btn-box">
                         <button class="buy-now" onclick="openOrder('${p.name}')">Buy Now</button>
-                        <button class="add-cart" onclick="addToCart('${p.id}')">+ Cart</button>
+                        <button class="add-cart" onclick="addToCart('${p.id}')">Add</button>
                     </div>
                 </div>
             </div>
         `).join('');
-        
-        setTimeout(() => {
-            document.querySelectorAll('.card').forEach(c => c.classList.add('show'));
-        }, 100);
     }
 
     function searchProducts() {
@@ -217,49 +251,57 @@
 
     function addToCart(id) {
         cart.push(products.find(i => i.id === id));
-        document.getElementById('cart-count').innerText = cart.length;
-        openCart(); renderCart();
+        renderCart();
+        openCart();
     }
 
     function renderCart() {
+        document.getElementById('cart-count').innerText = cart.length;
         const list = document.getElementById('cartList');
-        let total = cart.reduce((s, i) => s + i.price, 0);
-        list.innerHTML = cart.map((item, idx) => `<div style="padding:10px; border-bottom:1px solid #eee; animation: fadeInRight ${0.2 + idx*0.1}s;">${item.name} <span style="color:red; float:right; cursor:pointer;" onclick="removeFromCart(${idx})">✕</span></div>`).join('');
+        let total = 0;
+        list.innerHTML = cart.map((item, idx) => {
+            total += item.price;
+            return `<div style="padding:15px; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:center;">
+                <div><p style="font-weight:bold; font-size:0.9rem;">${item.name}</p><p style="color:var(--gold);">Rs. ${item.price}</p></div>
+                <span style="color:red; cursor:pointer; font-weight:bold;" onclick="removeFromCart(${idx})">REMOVE</span>
+            </div>`;
+        }).join('');
         document.getElementById('cartTotal').innerText = "Rs. " + total;
         document.getElementById('cartBottom').style.display = cart.length ? 'block' : 'none';
     }
 
-    function removeFromCart(i) { cart.splice(i,1); renderCart(); document.getElementById('cart-count').innerText = cart.length; }
+    function removeFromCart(i) { cart.splice(i,1); renderCart(); }
     function openCart() { document.getElementById('cartSide').classList.add('active'); }
     function closeCart() { document.getElementById('cartSide').classList.remove('active'); }
-
-    function checkoutCart() {
-        let allNames = cart.map(item => item.name).join(", ");
-        let totalVal = document.getElementById('cartTotal').innerText;
-        closeCart();
-        openOrder(allNames + " (Total: " + totalVal + ")");
-    }
-
-    function openOrder(fullNames) {
-        document.getElementById('orderProdDisplay').innerText = fullNames;
-        document.getElementById('prodInp').value = fullNames;
-        document.getElementById('orderModal').style.display = 'flex';
-    }
 
     function viewDetails(id) {
         const p = products.find(i => i.id === id);
         document.getElementById('det-title').innerText = p.name;
         document.getElementById('det-price').innerText = "Rs. " + p.price;
         document.getElementById('det-desc').innerText = p.desc;
-        document.getElementById('det-imgs').innerHTML = p.imgs.map(img => `<img src="${img}" style="width:100%; border-radius:10px; margin-bottom:15px; box-shadow:0 5px 15px rgba(0,0,0,0.1); animation: zoomIn 0.5s;">`).join('');
+        document.getElementById('det-imgs').innerHTML = p.imgs.map(img => `<img src="${img}" style="width:100%; border-radius:15px; margin-bottom:15px; box-shadow:0 10px 20px rgba(0,0,0,0.1);">`).join('');
+        document.getElementById('detOrderBtn').onclick = () => {
+            document.getElementById('detailsPage').style.display = 'none';
+            openOrder(p.name);
+        };
         document.getElementById('detailsPage').style.display = 'block';
+        document.getElementById('detailsPage').scrollTo(0,0);
+    }
+
+    function openOrder(info) {
+        document.getElementById('prodInp').value = info;
+        document.getElementById('orderModal').style.display = 'flex';
+    }
+
+    function checkoutCart() {
+        let details = cart.map(i => i.name).join(", ") + " | Total: " + document.getElementById('cartTotal').innerText;
+        closeCart();
+        openOrder(details);
     }
 
     window.onload = () => { 
-        displayProducts(products); 
-        setTimeout(() => {
-            document.getElementById('appPopup').style.display = 'flex';
-        }, 5000); 
+        displayProducts(products);
+        setTimeout(() => { document.getElementById('appPopup').style.display = 'flex'; }, 4000);
     };
 </script>
 </body>
