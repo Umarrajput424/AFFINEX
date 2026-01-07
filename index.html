@@ -27,16 +27,9 @@
             background: var(--gold);
             color: black;
             border: none;
-            padding: 18px 50px;
-            font-size: 1rem;
-            font-weight: bold;
-            letter-spacing: 2px;
-            cursor: pointer;
-            border-radius: 50px;
-            box-shadow: 0 0 30px rgba(197, 160, 89, 0.5);
-            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            z-index: 1000001;
+            padding: 18px 50px; font-size: 1rem; font-weight: bold; letter-spacing: 2px;
+            cursor: pointer; border-radius: 50px; box-shadow: 0 0 30px rgba(197, 160, 89, 0.5);
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; z-index: 1000001;
         }
         .enter-btn:hover { transform: scale(1.1); }
 
@@ -49,9 +42,7 @@
         .bag-btn { background: var(--gold); color: black; border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; cursor: pointer; }
 
         .cats { 
-            background: rgba(255, 255, 255, 0.1); 
-            backdrop-filter: blur(15px); 
-            -webkit-backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
             display: flex; gap: 12px; padding: 15px 5%; overflow-x: auto; white-space: nowrap; 
             position: sticky; top: 70px; z-index: 998; border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
@@ -76,12 +67,10 @@
         .card.reveal { opacity: 1; transform: translateY(0); }
         .card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
         
-        /* Product Badge Tag */
         .p-badge {
             position: absolute; top: 15px; left: 15px; background: var(--gold); color: black;
             padding: 5px 12px; border-radius: 5px; font-size: 0.7rem; font-weight: bold;
-            z-index: 5; text-transform: uppercase; letter-spacing: 1px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 5; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
         .card img { width: 100%; height: 320px; object-fit: cover; cursor: pointer; }
@@ -183,8 +172,7 @@
         <h2 id="det-name" style="text-align:center; margin:10px 0;"></h2>
         <h2 id="det-price" style="color:var(--gold); margin:15px 0; text-align:center; font-size:2rem;"></h2>
         
-        <div class="detail-tags" id="det-tags-container">
-            </div>
+        <div class="detail-tags" id="det-tags-container"></div>
 
         <div style="background:#f9f9f9; padding:20px; border-radius:10px; margin-bottom:20px;">
             <h4 style="margin-bottom:10px; border-bottom:1px solid #ddd; padding-bottom:5px;">SPECIFICATIONS</h4>
@@ -210,9 +198,9 @@
             <textarea name="Client_Full_Address" placeholder="Address" required rows="2"></textarea>
 
             <div class="pay-tabs">
-                <div class="p-tab active" onclick="switchPay('cod', this)">🚚 COD</div>
-                <div class="p-tab" onclick="switchPay('wallet', this)">📱 Wallet</div>
-                <div class="p-tab" onclick="switchPay('bank', this)">🏦 Bank</div>
+                <div id="tab-cod" class="p-tab active" onclick="switchPay('cod', this)">🚚 COD</div>
+                <div id="tab-wallet" class="p-tab" onclick="switchPay('wallet', this)">📱 Wallet</div>
+                <div id="tab-bank" class="p-tab" onclick="switchPay('bank', this)">🏦 Bank</div>
             </div>
             <input type="hidden" name="Method_of_Transaction" id="payMethodInp" value="COD">
 
@@ -220,23 +208,14 @@
             
             <div id="sec-wallet" class="pay-section">
                 <select name="Digital_Wallet_Type">
-                    <option>JazzCash</option>
-                    <option>EasyPaisa</option>
-                    <option>UPaisa</option>
-                    <option>ZINDIGI</option>
+                    <option>JazzCash</option><option>EasyPaisa</option><option>UPaisa</option><option>ZINDIGI</option>
                 </select>
                 <input type="text" name="Digital_Wallet_Number" placeholder="Mobile Number">
             </div>
 
             <div id="sec-bank" class="pay-section">
                 <select name="Financial_Institution">
-                    <option>Habib Metro Bank</option>
-                    <option>Bank Al Makramah</option>
-                    <option>Askari Bank</option>
-                    <option>Bank Islami</option>
-                    <option>Meezan Bank</option>
-                    <option>Bank AL Habib Ltd.</option>
-                    <option>Al Baraka</option>
+                    <option>Habib Metro Bank</option><option>Bank Al Makramah</option><option>Askari Bank</option><option>Bank Islami</option><option>Meezan Bank</option><option>Bank AL Habib Ltd.</option><option>Al Baraka</option>
                 </select>
                 <input type="text" name="Financial_Ref_No" placeholder="Account Number or IBAN">
                 <input type="text" name="Client_Identity_No" placeholder="CNIC Number (Required)">
@@ -268,8 +247,7 @@
         { 
             id: 'gb1', cat: 'Fashion', name: "Luxury Business Gift Box Set", price: 6140, 
             img: "https://uploads.onecompiler.io/43t4hdj9x/449vzj2z4/1000050504.jpg", 
-            noCod: true,
-            badge: "Limited Edition",
+            noCod: true, badge: "Limited Edition",
             desc: "🎁 Perfect Executive Gift Set\n• Premium Quartz Watch (Business Style)\n• Elegant Fashion Glasses\n• Multi-Card Slot Leather Wallet\n• High-Quality Presentation Gift Box\n• Ideal for Father's Day, Birthdays, or Corporate Gifts\n• Available in 2 Premium Colors", 
             imgs: ["https://uploads.onecompiler.io/43t4hdj9x/449vzj2z4/1000050504.jpg", "https://uploads.onecompiler.io/43t4hdj9x/449vzj2z4/1000050503.jpg"] 
         },
@@ -339,7 +317,7 @@
                     <div class="p-price">Rs. ${p.price}</div>
                     <span class="free-tag">🚚 FREE DELIVERY</span>
                     <div class="btn-box">
-                        <button class="buy-now" onclick="openOrder('${p.name}')">Buy Now</button>
+                        <button class="buy-now" onclick="openOrder('${p.name}', true)">Buy Now</button>
                         <button class="add-cart" onclick="addToCart('${p.id}')">Add</button>
                     </div>
                 </div>
@@ -368,14 +346,14 @@
         const tagContainer = document.getElementById('det-tags-container');
         let tagsHtml = `<span class="tag-item">🚚 Free Delivery</span>`;
         if(p.noCod) {
-            tagsHtml += `<span class="tag-item no-cod-tag">⚠️ Pre-payment Required (COD Not Available)</span>`;
+            tagsHtml += `<span class="tag-item no-cod-tag">⚠️ Pre-payment Required (Direct Buy)</span>`;
         } else {
             tagsHtml += `<span class="tag-item">✅ Cash on Delivery Available</span>`;
         }
         tagsHtml += `<span class="tag-item">💳 Online Payment Available</span>`;
         tagContainer.innerHTML = tagsHtml;
         
-        document.getElementById('detOrderBtn').onclick = () => { document.getElementById('detailsPage').style.display = 'none'; openOrder(p.name); };
+        document.getElementById('detOrderBtn').onclick = () => { document.getElementById('detailsPage').style.display = 'none'; openOrder(p.name, true); };
         document.getElementById('detCartBtn').onclick = () => { addToCart(p.id); };
         
         document.getElementById('detailsPage').style.display = 'block';
@@ -405,8 +383,21 @@
     function removeFromCart(i) { cart.splice(i,1); renderCart(); }
     function openCart() { document.getElementById('cartSide').classList.add('active'); }
     function closeCart() { document.getElementById('cartSide').classList.remove('active'); }
-    function openOrder(info) { document.getElementById('prodInp').value = info; document.getElementById('orderModal').style.display = 'flex'; }
-    function checkoutCart() { let details = cart.map(i => i.name).join(", "); closeCart(); openOrder(details); }
+
+    function openOrder(info, isDirect = false) { 
+        document.getElementById('prodInp').value = info; 
+        const codTab = document.getElementById('tab-cod');
+        if(isDirect && info.includes("Gift Box")) {
+            codTab.style.display = 'none'; 
+            switchPay('wallet', document.querySelectorAll('.p-tab')[1]);
+        } else {
+            codTab.style.display = 'block';
+            switchPay('cod', codTab);
+        }
+        document.getElementById('orderModal').style.display = 'flex'; 
+    }
+
+    function checkoutCart() { let details = cart.map(i => i.name).join(", "); closeCart(); openOrder(details, false); }
 
     function switchPay(t, el) { 
         document.querySelectorAll('.p-tab').forEach(x => x.classList.remove('active')); 
