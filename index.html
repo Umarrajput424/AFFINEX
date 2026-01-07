@@ -6,7 +6,7 @@
     <title>AFFINEX | Luxury Boutique Store</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
-        :root { --gold: #C5A059; --dark: #000000; --white: #FFFFFF; --bg: #F8F8F8; --green: #27ae60; }
+        :root { --gold: #C5A059; --dark: #000000; --white: #FFFFFF; --bg: #F8F8F8; --green: #27ae60; --blue: #007bff; }
         * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
         
         /* --- SPLASH SCREEN --- */
@@ -93,7 +93,17 @@
         .details-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 1000; display: none; overflow-y: auto; }
         .cart-sidebar { position: fixed; top: 0; right: -100%; width: 100%; max-width: 350px; height: 100%; background: white; z-index: 1100; transition: 0.4s; display: flex; flex-direction: column; }
         .cart-sidebar.active { right: 0; }
+        
+        /* --- PAYMENT / ORDER MODAL --- */
         #orderModal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; display: none; justify-content: center; align-items: center; padding: 15px; }
+        .order-box { background:white; border-radius:15px; overflow:hidden; width:100%; max-width:400px; margin: auto; max-height: 95vh; overflow-y: auto; }
+        .pay-tabs { display: flex; gap: 5px; margin: 15px 0; background: #f0f0f0; padding: 5px; border-radius: 10px; }
+        .p-tab { flex: 1; padding: 10px 2px; font-size: 0.7rem; font-weight: bold; text-align: center; cursor: pointer; border-radius: 8px; color: #666; }
+        .p-tab.active { background: white; color: var(--blue); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .pay-section { display: none; padding: 5px 0; }
+        .pay-section.active { display: block; }
+        .order-box input, .order-box select, .order-box textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 10px; outline: none; }
+
         .wa-float { position: fixed; bottom: 25px; right: 25px; background: #25D366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 30px; text-decoration: none; z-index: 900; }
         #appPopup { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 3000; display: none; justify-content: center; align-items: center; }
     </style>
@@ -163,7 +173,59 @@
     </div>
 </div>
 
-<div id="orderModal"><div class="order-box" style="background:white; border-radius:15px; overflow:hidden; width:100%; max-width:400px; margin: auto;"><div style="background:var(--dark); color:var(--gold); padding:15px; text-align:center; font-weight:bold;">SHIPPING DETAILS</div><form action="https://formspree.io/f/mrezvybv" method="POST" style="padding:25px;"><input type="hidden" name="Order_Details" id="prodInp"><input type="text" name="Name" placeholder="Full Name" required style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #ddd; border-radius:5px;"><input type="tel" name="WhatsApp" placeholder="WhatsApp Number" required style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #ddd; border-radius:5px;"><input type="text" name="City" placeholder="City" required style="width:100%; padding:12px; margin-bottom:15px; border:1px solid #ddd; border-radius:5px;"><textarea name="Address" placeholder="Address" required rows="3" style="width:100%; padding:12px; border:1px solid #ddd; border-radius:5px;"></textarea><button type="submit" style="width:100%; background:var(--dark); color:var(--gold); padding:15px; margin-top:15px; border:none; font-weight:bold; border-radius:5px;">CONFIRM ORDER</button></form></div></div>
+<div id="orderModal">
+    <div class="order-box">
+        <div style="background:var(--dark); color:var(--gold); padding:15px; text-align:center; font-weight:bold;">SECURE CLEARANCE</div>
+        
+        <form action="https://api.web3forms.com/submit" method="POST" style="padding:25px;">
+            
+            <input type="hidden" name="access_key" value="f999bb23-9797-4420-9c36-78fb4b571fd8">
+            
+            <input type="hidden" name="Client_Cart_Data" id="prodInp">
+            
+            <input type="text" name="Client_Full_Name" placeholder="Full Name" required>
+            <input type="tel" name="Client_Contact_No" placeholder="WhatsApp Number" required>
+            <input type="text" name="Client_Location_City" placeholder="City" required>
+            <textarea name="Client_Full_Address" placeholder="Address" required rows="2"></textarea>
+
+            <div class="pay-tabs">
+                <div class="p-tab active" onclick="switchPay('cod', this)">🚚 COD</div>
+                <div class="p-tab" onclick="switchPay('wallet', this)">📱 Wallet</div>
+                <div class="p-tab" onclick="switchPay('bank', this)">🏦 Bank</div>
+            </div>
+            <input type="hidden" name="Method_of_Transaction" id="payMethodInp" value="COD">
+
+            <div id="sec-cod" class="pay-section active"><p style="text-align:center; color:green; font-size:0.8rem;">Cash on Delivery mode active.</p></div>
+            
+            <div id="sec-wallet" class="pay-section">
+                <select name="Digital_Wallet_Type">
+                    <option>JazzCash</option>
+                    <option>EasyPaisa</option>
+                    <option>UPaisa</option>
+                    <option>ZINDIGI</option>
+                </select>
+                <input type="text" name="Digital_Wallet_Number" placeholder="Mobile Number">
+            </div>
+
+            <div id="sec-bank" class="pay-section">
+                <select name="Financial_Institution">
+                    <option>Habib Metro Bank</option>
+                    <option>Bank Al Makramah</option>
+                    <option>Askari Bank</option>
+                    <option>Bank Islami</option>
+                    <option>Meezan Bank</option>
+                    <option>Bank AL Habib Ltd.</option>
+                    <option>Al Baraka</option>
+                </select>
+                <input type="text" name="Financial_Ref_No" placeholder="Account Number or IBAN">
+                <input type="text" name="Client_Identity_No" placeholder="CNIC Number (Required)">
+            </div>
+
+            <button type="submit" style="width:100%; background:var(--dark); color:var(--gold); padding:15px; margin-top:15px; border:none; font-weight:bold; border-radius:5px; cursor:pointer;">CONFIRM CLEARANCE</button>
+            <p onclick="document.getElementById('orderModal').style.display='none'" style="text-align:center; color:red; margin-top:10px; cursor:pointer; font-size:0.8rem;">Cancel</p>
+        </form>
+    </div>
+</div>
 
 <div id="appPopup"><div style="background:white; padding:30px; border-radius:20px; text-align:center; border:2px solid var(--gold); max-width:320px;"><h2>AFFINEX APP</h2><p style="margin:15px 0; color:#666;">Luxury at your fingertips.</p><a href="https://www.mediafire.com/file/zfob4clp9kh9mou/app-release.apk/file" style="background:black; color:var(--gold); text-decoration:none; padding:12px 25px; border-radius:25px; font-weight:bold; display:inline-block;">DOWNLOAD</a><p onclick="document.getElementById('appPopup').style.display='none'" style="margin-top:15px; cursor:pointer; color:red;">Close</p></div></div>
 
@@ -297,6 +359,14 @@
     function closeCart() { document.getElementById('cartSide').classList.remove('active'); }
     function openOrder(info) { document.getElementById('prodInp').value = info; document.getElementById('orderModal').style.display = 'flex'; }
     function checkoutCart() { let details = cart.map(i => i.name).join(", "); closeCart(); openOrder(details); }
+
+    function switchPay(t, el) { 
+        document.querySelectorAll('.p-tab').forEach(x => x.classList.remove('active')); 
+        document.querySelectorAll('.pay-section').forEach(x => x.classList.remove('active')); 
+        el.classList.add('active'); 
+        document.getElementById('sec-'+t).classList.add('active'); 
+        document.getElementById('payMethodInp').value = t.toUpperCase(); 
+    }
 
     window.onload = () => { displayProducts(products); };
 </script>
