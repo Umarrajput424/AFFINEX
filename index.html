@@ -71,9 +71,19 @@
         .card { 
             background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
             display: flex; flex-direction: column; transition: all 0.5s ease; opacity: 0; transform: translateY(30px); 
+            position: relative;
         }
         .card.reveal { opacity: 1; transform: translateY(0); }
         .card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        
+        /* Product Badge Tag */
+        .p-badge {
+            position: absolute; top: 15px; left: 15px; background: var(--gold); color: black;
+            padding: 5px 12px; border-radius: 5px; font-size: 0.7rem; font-weight: bold;
+            z-index: 5; text-transform: uppercase; letter-spacing: 1px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
         .card img { width: 100%; height: 320px; object-fit: cover; cursor: pointer; }
 
         .card-content { padding: 20px; text-align: center; flex-grow: 1; }
@@ -94,7 +104,6 @@
         .cart-sidebar { position: fixed; top: 0; right: -100%; width: 100%; max-width: 350px; height: 100%; background: white; z-index: 1100; transition: 0.4s; display: flex; flex-direction: column; }
         .cart-sidebar.active { right: 0; }
         
-        /* --- PAYMENT / ORDER MODAL --- */
         #orderModal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; display: none; justify-content: center; align-items: center; padding: 15px; }
         .order-box { background:white; border-radius:15px; overflow:hidden; width:100%; max-width:400px; margin: auto; max-height: 95vh; overflow-y: auto; }
         .pay-tabs { display: flex; gap: 5px; margin: 15px 0; background: #f0f0f0; padding: 5px; border-radius: 10px; }
@@ -109,6 +118,7 @@
         
         .detail-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 15px; justify-content: center; }
         .tag-item { background: #eee; padding: 5px 10px; border-radius: 5px; font-size: 0.75rem; font-weight: bold; color: #555; }
+        .no-cod-tag { background: #ffebee; color: #d32f2f; }
     </style>
 </head>
 <body style="overflow: hidden;">
@@ -173,11 +183,8 @@
         <h2 id="det-name" style="text-align:center; margin:10px 0;"></h2>
         <h2 id="det-price" style="color:var(--gold); margin:15px 0; text-align:center; font-size:2rem;"></h2>
         
-        <div class="detail-tags">
-            <span class="tag-item">🚚 Free Delivery</span>
-            <span class="tag-item">✅ Cash on Delivery Available</span>
-            <span class="tag-item">💳 Online Payment Available</span>
-        </div>
+        <div class="detail-tags" id="det-tags-container">
+            </div>
 
         <div style="background:#f9f9f9; padding:20px; border-radius:10px; margin-bottom:20px;">
             <h4 style="margin-bottom:10px; border-bottom:1px solid #ddd; padding-bottom:5px;">SPECIFICATIONS</h4>
@@ -195,11 +202,8 @@
         <div style="background:var(--dark); color:var(--gold); padding:15px; text-align:center; font-weight:bold;">SECURE CLEARANCE</div>
         
         <form action="https://api.web3forms.com/submit" method="POST" style="padding:25px;">
-            
             <input type="hidden" name="access_key" value="f999bb23-9797-4420-9c36-78fb4b571fd8">
-            
             <input type="hidden" name="Client_Cart_Data" id="prodInp">
-            
             <input type="text" name="Client_Full_Name" placeholder="Full Name" required>
             <input type="tel" name="Client_Contact_No" placeholder="WhatsApp Number" required>
             <input type="text" name="Client_Location_City" placeholder="City" required>
@@ -262,6 +266,14 @@
 
     const products = [
         { 
+            id: 'gb1', cat: 'Fashion', name: "Luxury Business Gift Box Set", price: 6140, 
+            img: "https://uploads.onecompiler.io/43t4hdj9x/449vzj2z4/1000050504.jpg", 
+            noCod: true,
+            badge: "Limited Edition",
+            desc: "🎁 Perfect Executive Gift Set\n• Premium Quartz Watch (Business Style)\n• Elegant Fashion Glasses\n• Multi-Card Slot Leather Wallet\n• High-Quality Presentation Gift Box\n• Ideal for Father's Day, Birthdays, or Corporate Gifts\n• Available in 2 Premium Colors", 
+            imgs: ["https://uploads.onecompiler.io/43t4hdj9x/449vzj2z4/1000050504.jpg", "https://uploads.onecompiler.io/43t4hdj9x/449vzj2z4/1000050503.jpg"] 
+        },
+        { 
             id: 'md1', cat: 'Watches', name: "Marble Dial Black Watch", price: 2210, 
             img: "https://uploads.onecompiler.io/43t4hdj9x/449qbak22/1000050232.jpg", 
             desc: "💎 Premium Craftsmanship\n• Case: Carbon Fiber Reinforced\n• Movement: High-Precision Quartz\n• Glass: Scratch Resistant Sapphire\n• Strap: Flexible Rubber / Silicone\n• Features: Luminous Hands, Water Resistant\n• Style: Modern Chronograph Aesthetic", 
@@ -270,18 +282,21 @@
         { 
             id: 'rx1', cat: 'Watches', name: "Luxury Rolex Steel Watch", price: 2800, 
             img: "https://uploads.onecompiler.io/43t4hdj9x/448xb245h/1000047553.jpg", 
+            badge: "Best Seller",
             desc: "👑 Iconic Luxury Design\n• Body: 316L Stainless Steel\n• Dial: Sunburst Finish (Green/Blue/Black)\n• Bezel: Unidirectional Rotating\n• Movement: Premium Automatic Feel\n• Clasp: Oysterlock Folding Clasp\n• Perfect for formal and casual occasions.", 
             imgs: ["https://uploads.onecompiler.io/43t4hdj9x/448xb245h/1000047553.jpg", "https://uploads.onecompiler.io/43t4hdj9x/448xb245h/1000047559.jpg", "https://uploads.onecompiler.io/43t4hdj9x/448xb245h/1000047555.jpg", "https://uploads.onecompiler.io/43t4hdj9x/448xb245h/1000047557.jpg"] 
         },
         { 
             id: 'aw1', cat: 'Watches', name: "Premium Arabic Dial Watch", price: 2164, 
             img: "https://uploads.onecompiler.io/43t4hdj9x/448t8n3gt/1000047220.jpg", 
+            badge: "Premium",
             desc: "✨ Cultural Elegance\n• Numbers: Authentic Arabic Numerals\n• Material: High-Grade Brass Finish\n• Strap: Genuine Leather / Linked Steel\n• Movement: Silent Quartz Movement\n• Glass: Mineral Hardened Crystal", 
             imgs: ["https://uploads.onecompiler.io/43t4hdj9x/448t8n3gt/1000047220.jpg", "https://uploads.onecompiler.io/43t4hdj9x/448t8n3gt/1000047221.jpg", "https://uploads.onecompiler.io/43t4hdj9x/448t8n3gt/1000047222.jpg"] 
         },
         { 
             id: 'w1', cat: 'Watches', name: "Richard Skeleton Watch", price: 3385, 
             img: "https://uploads.onecompiler.io/43t4hdj9x/448jefz8d/1000046407.jpg", 
+            badge: "Luxury",
             desc: "⚙️ Masterpiece Engineering\n• Type: Skeleton Dial (Exposed Inner Gears)\n• Material: Lightweight Polycarbonate\n• Strap: High-Comfort Silicon\n• Movement: Semi-Mechanical Aesthetic\n• Eye-catching avant-garde design.", 
             imgs: ["https://uploads.onecompiler.io/43t4hdj9x/448jefz8d/1000046407.jpg", "https://uploads.onecompiler.io/43t4hdj9x/448pxm8yg/1000046409.jpg", "https://uploads.onecompiler.io/43t4hdj9x/448pxm8yg/1000046408.jpg"] 
         },
@@ -300,6 +315,7 @@
         { 
             id: 'e2', cat: 'Electronics', name: "Electric Lint Remover", price: 2545, 
             img: "https://uploads.onecompiler.io/43t4hdj9x/448r7fga5/1000047089.jpg", 
+            badge: "Useful",
             desc: "👕 Fabric Restoration Specialist\n• Blades: Stainless Steel Honeycomb Mesh\n• Battery: Rechargeable Internal Battery\n• Suitable For: Wool, Sweaters, Blankets, Sofas\n• Safety: Automatic Cut-off Mechanism\n• Make your old clothes look brand new!", 
             imgs: ["https://uploads.onecompiler.io/43t4hdj9x/448r7fga5/1000047089.jpg", "https://uploads.onecompiler.io/43t4hdj9x/448r7fga5/1000047088.jpg"] 
         }
@@ -316,6 +332,7 @@
         const grid = document.getElementById('productGrid');
         grid.innerHTML = items.map(p => `
             <div class="card">
+                ${p.badge ? `<div class="p-badge">${p.badge}</div>` : ''}
                 <img src="${p.img}" onclick="viewDetails('${p.id}')">
                 <div class="card-content">
                     <div class="p-name">${p.name}</div>
@@ -348,7 +365,16 @@
         document.getElementById('det-desc').innerText = p.desc;
         document.getElementById('det-imgs').innerHTML = p.imgs.map(src => `<img src="${src}" style="width:100%; border-radius:15px; margin-bottom:15px;">`).join('');
         
-        // Setup Detail Page Buttons
+        const tagContainer = document.getElementById('det-tags-container');
+        let tagsHtml = `<span class="tag-item">🚚 Free Delivery</span>`;
+        if(p.noCod) {
+            tagsHtml += `<span class="tag-item no-cod-tag">⚠️ Pre-payment Required (COD Not Available)</span>`;
+        } else {
+            tagsHtml += `<span class="tag-item">✅ Cash on Delivery Available</span>`;
+        }
+        tagsHtml += `<span class="tag-item">💳 Online Payment Available</span>`;
+        tagContainer.innerHTML = tagsHtml;
+        
         document.getElementById('detOrderBtn').onclick = () => { document.getElementById('detailsPage').style.display = 'none'; openOrder(p.name); };
         document.getElementById('detCartBtn').onclick = () => { addToCart(p.id); };
         
