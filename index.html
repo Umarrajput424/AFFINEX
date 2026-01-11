@@ -181,6 +181,7 @@
         <h2 id="det-price" style="color:var(--gold); margin:15px 0; text-align:center; font-size:2rem;"></h2>
         
         <div class="detail-tags" id="det-tags-container"></div>
+        <div id="size-selection-area" style="text-align:center; margin:10px 0;"></div>
 
         <div style="background:#f9f9f9; padding:20px; border-radius:10px; margin-bottom:20px;">
             <h4 style="margin-bottom:10px; border-bottom:1px solid #ddd; padding-bottom:5px;">SPECIFICATIONS</h4>
@@ -252,6 +253,14 @@
     }
 
     const products = [
+        { 
+            id: 'sh1', cat: 'Fashion', name: "Royal Hand-Stitched Loafers", price: 2139, 
+            img: "https://uploads.onecompiler.io/43t4hdj9x/44aavfjrm/1000052565.jpg", 
+            badge: "New",
+            sizes: [39, 40, 41, 42, 43, 44],
+            desc: "👞 Step into Comfort & Class\n• Material: Premium Synthetic Leather\n• Sole: Flexible Anti-Slip Rubber\n• Comfort: Soft Cushion Insole\n• Style: Classic Slip-On Design\n• Perfect for Casual & Office Wear", 
+            imgs: ["https://uploads.onecompiler.io/43t4hdj9x/44aavfjrm/1000052565.jpg", "https://uploads.onecompiler.io/43t4hdj9x/44aavfjrm/1000052566.jpg", "https://uploads.onecompiler.io/43t4hdj9x/44aavfjrm/1000052567.jpg"] 
+        },
         { 
             id: 'wa1', cat: 'Watches', name: "White Arabic Watch", price: 2215, 
             img: "https://uploads.onecompiler.io/43t4hdj9x/449ywupgf/1000050793.jpg", 
@@ -367,8 +376,27 @@
         }
         tagsHtml += `<span class="tag-item">💳 Online Payment Available</span>`;
         tagContainer.innerHTML = tagsHtml;
+
+        // Size Selection Logic
+        const sizeArea = document.getElementById('size-selection-area');
+        sizeArea.innerHTML = ''; // Clear existing
+        if(p.sizes) {
+            let opts = p.sizes.map(s => `<option value="${s}">${s}</option>`).join('');
+            sizeArea.innerHTML = `<select id="sz-sel" style="padding:10px; width:100%; border:1px solid #ddd; border-radius:5px; outline:none; background:#f0f0f0;">
+                <option value="">Select Size</option>${opts}
+            </select>`;
+        }
         
-        document.getElementById('detOrderBtn').onclick = () => { document.getElementById('detailsPage').style.display = 'none'; openOrder(p.name, true); };
+        document.getElementById('detOrderBtn').onclick = () => { 
+            let finalName = p.name;
+            if(p.sizes) {
+                const sVal = document.getElementById('sz-sel').value;
+                if(!sVal) { alert('Please select a size'); return; }
+                finalName += ` (Size: ${sVal})`;
+            }
+            document.getElementById('detailsPage').style.display = 'none'; 
+            openOrder(finalName, true); 
+        };
         document.getElementById('detCartBtn').onclick = () => { addToCart(p.id); };
         
         document.getElementById('detailsPage').style.display = 'block';
