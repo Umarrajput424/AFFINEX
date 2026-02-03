@@ -22,7 +22,7 @@
     <title>AFFINEX | Luxury Boutique Store</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
-        :root { --gold: #C5A059; --dark: #000000; --white: #FFFFFF; --bg: #F8F8F8; --green: #27ae60; --blue: #007bff; }
+        :root { --gold: #C5A059; --dark: #000000; --white: #FFFFFF; --bg: #F8F8F8; --green: #27ae60; --blue: #007bff; --red: #e74c3c; }
         * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
         
         /* --- SPLASH SCREEN --- */
@@ -72,6 +72,10 @@
 
         .hero { height: 35vh; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=2070') center/cover; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; border-bottom: 4px solid var(--gold); text-align: center; }
 
+        /* Countdown Style */
+        .sale-timer { background: #000; color: #fff; padding: 10px; text-align: center; font-weight: bold; font-size: 0.9rem; letter-spacing: 1px; }
+        .timer-digits { color: var(--gold); font-size: 1.1rem; margin-left: 10px; }
+
         .container { max-width: 1200px; margin: 40px auto; padding: 0 15px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
         
@@ -93,7 +97,11 @@
 
         .card-content { padding: 20px; text-align: center; flex-grow: 1; }
         .p-name { font-weight: bold; font-size: 1.1rem; margin-bottom: 10px; height: 45px; overflow: hidden; }
+        
+        /* Price Styles */
         .p-price { font-size: 1.5rem; font-weight: 800; color: var(--gold); margin-bottom: 5px; }
+        .old-price { text-decoration: line-through; color: #999; font-size: 1rem; margin-right: 8px; font-weight: 400; }
+        
         .free-tag { color: var(--green); font-size: 0.8rem; font-weight: bold; margin-bottom: 15px; display: block; }
         
         .btn-box { display: flex; gap: 10px; }
@@ -152,6 +160,10 @@
     <h1>AFFINEX LUXURY</h1>
     <p style="color:var(--gold); letter-spacing:4px; font-weight:bold;">ESTABLISHED 2025</p>
 </section>
+
+<div class="sale-timer">
+    FLASH SALE ENDS IN: <span class="timer-digits" id="countdown">12:00:00</span>
+</div>
 
 <div class="container">
     <div class="grid" id="productGrid"></div>
@@ -256,6 +268,19 @@
 <a href="https://wa.me/923364446881" class="wa-float" style="text-decoration:none; color:white;">WA</a>
 
 <script>
+    // Countdown Timer Logic
+    function startTimer() {
+        let time = 12 * 60 * 60; // 12 Hours in seconds
+        const display = document.getElementById('countdown');
+        setInterval(() => {
+            let hours = Math.floor(time / 3600);
+            let mins = Math.floor((time % 3600) / 60);
+            let secs = time % 60;
+            display.innerText = `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            if (time > 0) time--; else time = 12 * 60 * 60; // Reset
+        }, 1000);
+    }
+
     function enterStore() {
         const splash = document.getElementById('splashScreen');
         splash.style.opacity = '0';
@@ -263,11 +288,29 @@
             splash.style.visibility = 'hidden';
             document.body.style.overflow = 'auto';
             revealProducts();
+            startTimer();
         }, 600);
         setTimeout(() => { document.getElementById('appPopup').style.display = 'flex'; }, 4000);
     }
 
     const products = [
+        { 
+            id: 'vday1', 
+            cat: 'Fashion', 
+            name: "AFFINEX Eternal Rose & Heart Pendant Set", 
+            price: 3000, 
+            img: "https://uploads.onecompiler.io/43t4hdj9x/44bxsfaxu/1000058141.jpg", 
+            badge: "Valentine Special",
+            colors: {
+                "Rose Gold": "https://uploads.onecompiler.io/43t4hdj9x/44bxsfaxu/1000058141.jpg",
+                "Golden": "https://uploads.onecompiler.io/43t4hdj9x/44bxsfaxu/1000058137.jpg",
+                "Silver": "https://uploads.onecompiler.io/43t4hdj9x/44bxsfaxu/1000058138.jpg",
+                "Peach": "https://uploads.onecompiler.io/43t4hdj9x/44bxsfaxu/1000058139.jpg",
+                "Pink": "https://uploads.onecompiler.io/43t4hdj9x/44bxsfaxu/1000058140.jpg"
+            },
+            desc: "🌹 Express Your Eternal Love\n• Feature: Rotating Luxury Rose Display Box\n• Jewelry: Hidden Drawer with Premium Heart Necklace\n• Box Quality: High-Grade Matte Finish with Velvet Interior\n• Symbolic: A rose that never fades.\n• Free Premium Gift Packaging Included.", 
+            imgs: ["https://uploads.onecompiler.io/43t4hdj9x/44bxsfaxu/1000058141.jpg"] 
+        },
         { 
             id: 'sh1', cat: 'Fashion', name: "Royal Hand-Stitched Loafers", price: 2139, 
             img: "https://uploads.onecompiler.io/43t4hdj9x/44aavfjrm/1000052565.jpg", 
@@ -360,7 +403,7 @@
                 <img src="${p.img}" onclick="viewDetails('${p.id}')">
                 <div class="card-content">
                     <div class="p-name">${p.name}</div>
-                    <div class="p-price">Rs. ${p.price}</div>
+                    <div class="p-price"><span class="old-price">Rs. ${p.price * 2}</span>Rs. ${p.price}</div>
                     <span class="free-tag">🚚 FREE DELIVERY</span>
                     <div class="btn-box">
                         <button class="buy-now" onclick="openOrder('${p.name}', true)">Buy Now</button>
@@ -385,9 +428,15 @@
     function viewDetails(id) {
         const p = products.find(i => i.id === id);
         document.getElementById('det-name').innerText = p.name;
-        document.getElementById('det-price').innerText = "Rs. " + p.price;
+        document.getElementById('det-price').innerHTML = `<span style="text-decoration: line-through; color: #999; font-size: 1.2rem; margin-right: 10px;">Rs. ${p.price * 2}</span> Rs. ${p.price}`;
         document.getElementById('det-desc').innerText = p.desc;
-        document.getElementById('det-imgs').innerHTML = p.imgs.map(src => `<img src="${src}" style="width:100%; border-radius:15px; margin-bottom:15px;">`).join('');
+        
+        // Image display logic
+        const imgContainer = document.getElementById('det-imgs');
+        imgContainer.innerHTML = `<img id="main-det-img" src="${p.img}" style="width:100%; border-radius:15px; margin-bottom:15px; transition: 0.3s;">`;
+        if(p.imgs.length > 1 && !p.colors) {
+            imgContainer.innerHTML += p.imgs.slice(1).map(src => `<img src="${src}" style="width:100%; border-radius:15px; margin-bottom:15px;">`).join('');
+        }
         
         const tagContainer = document.getElementById('det-tags-container');
         let tagsHtml = `<span class="tag-item">🚚 Free Delivery</span>`;
@@ -399,18 +448,32 @@
         tagsHtml += `<span class="tag-item">💳 Online Payment Available</span>`;
         tagContainer.innerHTML = tagsHtml;
 
-        // Size Selection Logic
         const sizeArea = document.getElementById('size-selection-area');
-        sizeArea.innerHTML = ''; // Clear existing
+        sizeArea.innerHTML = ''; 
+
+        // Color Selector for Valentine Product
+        if(p.colors) {
+            let colorOpts = Object.keys(p.colors).map(c => `<option value="${c}">${c}</option>`).join('');
+            sizeArea.innerHTML = `<p style="margin-bottom:8px; font-weight:bold; font-size:0.9rem;">SELECT COLOR:</p>
+            <select id="col-sel" onchange="switchColor(this, '${p.id}')" style="padding:12px; width:100%; border:1px solid #ddd; border-radius:8px; outline:none; background:#f9f9f9; font-weight:bold; margin-bottom:15px;">
+                ${colorOpts}
+            </select>`;
+        }
+
         if(p.sizes) {
             let opts = p.sizes.map(s => `<option value="${s}">${s}</option>`).join('');
-            sizeArea.innerHTML = `<select id="sz-sel" style="padding:10px; width:100%; border:1px solid #ddd; border-radius:5px; outline:none; background:#f0f0f0;">
+            sizeArea.innerHTML += `<p style="margin-bottom:8px; font-weight:bold; font-size:0.9rem;">SELECT SIZE:</p>
+            <select id="sz-sel" style="padding:12px; width:100%; border:1px solid #ddd; border-radius:8px; outline:none; background:#f9f9f9;">
                 <option value="">Select Size</option>${opts}
             </select>`;
         }
         
         document.getElementById('detOrderBtn').onclick = () => { 
             let finalName = p.name;
+            if(p.colors) {
+                const cVal = document.getElementById('col-sel').value;
+                finalName += ` (Color: ${cVal})`;
+            }
             if(p.sizes) {
                 const sVal = document.getElementById('sz-sel').value;
                 if(!sVal) { alert('Please select a size'); return; }
@@ -422,6 +485,12 @@
         document.getElementById('detCartBtn').onclick = () => { addToCart(p.id); };
         
         document.getElementById('detailsPage').style.display = 'block';
+    }
+
+    function switchColor(el, pid) {
+        const p = products.find(i => i.id === pid);
+        const newImg = p.colors[el.value];
+        document.getElementById('main-det-img').src = newImg;
     }
 
     function addToCart(id) {
