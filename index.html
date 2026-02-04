@@ -544,6 +544,7 @@
         document.getElementById('detailsPage').classList.remove('valentine-mode');
     }
 
+    // FUNCTION TO CHANGE IMAGE ON COLOR SELECT
     function switchColor(el, pid) {
         const p = products.find(i => i.id === pid);
         const newImg = p.colors[el.value];
