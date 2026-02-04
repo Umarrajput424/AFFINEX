@@ -113,7 +113,25 @@
         .footer-col h4 { color: var(--gold); margin-bottom: 20px; letter-spacing: 2px; }
         .footer-col a { color: #888; text-decoration: none; display: block; margin-bottom: 10px; cursor: pointer; }
 
-        .details-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 1000; display: none; overflow-y: auto; }
+        .details-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 1000; display: none; overflow-y: auto; transition: background 0.5s; }
+        
+        /* VALENTINE SPECIAL THEME */
+        .valentine-mode {
+            background: linear-gradient(135deg, #fff0f5 0%, #ffc1e3 100%) !important;
+            border: 4px solid #ff4d4d;
+        }
+        .falling-flower {
+            position: fixed;
+            top: -50px;
+            font-size: 25px;
+            z-index: 10000;
+            animation: fall linear forwards;
+            pointer-events: none;
+        }
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+
         .cart-sidebar { position: fixed; top: 0; right: -100%; width: 100%; max-width: 350px; height: 100%; background: white; z-index: 1100; transition: 0.4s; display: flex; flex-direction: column; }
         .cart-sidebar.active { right: 0; }
         
@@ -201,7 +219,7 @@
 <div id="cartSide" class="cart-sidebar"><div style="padding:20px; background:#000; color:#fff; display:flex; justify-content:space-between;"><strong>BAG</strong><span onclick="closeCart()" style="cursor:pointer;">✕</span></div><div id="cartList" style="flex-grow:1; overflow-y:auto; padding:15px;"></div><div id="cartBottom" style="padding:20px; border-top:1px solid #eee; display:none;"><div style="display:flex; justify-content:space-between; margin-bottom:15px; font-weight:bold;"><span>TOTAL:</span><span id="cartTotal"></span></div><button onclick="checkoutCart()" style="width:100%; background:var(--gold); padding:15px; border:none; font-weight:bold; cursor:pointer;">CHECKOUT</button></div></div>
 
 <div id="detailsPage" class="details-overlay">
-    <div style="padding:15px; border-bottom:1px solid #eee; display:flex; justify-content:space-between; position:sticky; top:0; background:white; z-index:10;"><strong>PRODUCT DETAILS</strong><span onclick="document.getElementById('detailsPage').style.display='none'" style="cursor:pointer;">✕</span></div>
+    <div style="padding:15px; border-bottom:1px solid #eee; display:flex; justify-content:space-between; position:sticky; top:0; background:rgba(255,255,255,0.95); z-index:10;"><strong>PRODUCT DETAILS</strong><span onclick="closeDetails()" style="cursor:pointer; font-size:1.5rem;">✕</span></div>
     <div style="padding:20px; max-width:600px; margin:0 auto;">
         <div id="det-imgs"></div>
         <h2 id="det-name" style="text-align:center; margin:10px 0;"></h2>
@@ -210,7 +228,7 @@
         <div class="detail-tags" id="det-tags-container"></div>
         <div id="size-selection-area" style="text-align:center; margin:10px 0;"></div>
 
-        <div style="background:#f9f9f9; padding:20px; border-radius:10px; margin-bottom:20px;">
+        <div style="background:rgba(255,255,255,0.7); padding:20px; border-radius:10px; margin-bottom:20px;">
             <h4 style="margin-bottom:10px; border-bottom:1px solid #ddd; padding-bottom:5px;">SPECIFICATIONS</h4>
             <p id="det-desc" style="white-space:pre-line; line-height:1.8; color:#444;"></p>
         </div>
@@ -425,8 +443,41 @@
         displayProducts(products.filter(p => p.name.toLowerCase().includes(term)));
     }
 
+    // --- VALENTINE EFFECTS ---
+    let rainInterval;
+
+    function startRoseRain() {
+        if(rainInterval) clearInterval(rainInterval);
+        rainInterval = setInterval(() => {
+            const flower = document.createElement('div');
+            flower.classList.add('falling-flower');
+            flower.innerText = Math.random() > 0.5 ? '🌹' : '🌺';
+            flower.style.left = Math.random() * 100 + 'vw';
+            flower.style.animationDuration = Math.random() * 3 + 2 + 's';
+            flower.style.fontSize = Math.random() * 20 + 20 + 'px';
+            document.body.appendChild(flower);
+            setTimeout(() => { flower.remove(); }, 5000);
+        }, 300);
+    }
+
+    function stopRoseRain() {
+        clearInterval(rainInterval);
+        document.querySelectorAll('.falling-flower').forEach(el => el.remove());
+    }
+
     function viewDetails(id) {
         const p = products.find(i => i.id === id);
+        const detPage = document.getElementById('detailsPage');
+
+        // Check for Valentine Product
+        if(id === 'vday1') {
+            startRoseRain();
+            detPage.classList.add('valentine-mode');
+        } else {
+            stopRoseRain();
+            detPage.classList.remove('valentine-mode');
+        }
+
         document.getElementById('det-name').innerText = p.name;
         document.getElementById('det-price').innerHTML = `<span style="text-decoration: line-through; color: #999; font-size: 1.2rem; margin-right: 10px;">Rs. ${p.price * 2}</span> Rs. ${p.price}`;
         document.getElementById('det-desc').innerText = p.desc;
@@ -479,12 +530,18 @@
                 if(!sVal) { alert('Please select a size'); return; }
                 finalName += ` (Size: ${sVal})`;
             }
-            document.getElementById('detailsPage').style.display = 'none'; 
+            closeDetails();
             openOrder(finalName, true); 
         };
         document.getElementById('detCartBtn').onclick = () => { addToCart(p.id); };
         
-        document.getElementById('detailsPage').style.display = 'block';
+        detPage.style.display = 'block';
+    }
+
+    function closeDetails() {
+        document.getElementById('detailsPage').style.display = 'none';
+        stopRoseRain();
+        document.getElementById('detailsPage').classList.remove('valentine-mode');
     }
 
     function switchColor(el, pid) {
