@@ -1579,6 +1579,7 @@
     }
 
     function filterCategory(cat, el) {
+        haptic('light');
         document.querySelectorAll('#catBar .cat-item').forEach(c => c.classList.remove('active'));
         el.classList.add('active');
         displayProducts(cat === 'all' ? products : products.filter(p => p.cat === cat));
@@ -1614,6 +1615,7 @@
 
     // ========== PRODUCT DETAILS ==========
     function viewDetails(id) {
+        haptic('light');
         const p = products.find(i => i.id === id);
         const detPage = document.getElementById('detailsPage');
 
@@ -1698,6 +1700,7 @@
 
     // ========== CART ==========
     function addToCart(id) {
+        haptic('success');
         cart.push(products.find(i => i.id === id));
         renderCart();
         openCart();
@@ -1721,11 +1724,12 @@
         document.getElementById('cartBottom').style.display = cart.length ? 'block' : 'none';
     }
 
-    function removeFromCart(i) { cart.splice(i,1); renderCart(); }
-    function openCart() { document.getElementById('cartSide').classList.add('active'); }
+    function removeFromCart(i) { haptic('light'); cart.splice(i,1); renderCart(); }
+    function openCart() { haptic('light'); document.getElementById('cartSide').classList.add('active'); }
     function closeCart() { document.getElementById('cartSide').classList.remove('active'); }
 
     function openOrder(info, isDirect = false) { 
+        haptic('medium');
         document.getElementById('prodInp').value = info; 
         const codTab = document.getElementById('tab-cod');
         if(isDirect && info.includes("Gift Box")) {
@@ -1745,6 +1749,7 @@
     }
 
     function switchPay(t, el) { 
+        haptic('light');
         document.querySelectorAll('.p-tab').forEach(x => x.classList.remove('active')); 
         document.querySelectorAll('.pay-section').forEach(x => x.classList.remove('active')); 
         el.classList.add('active'); 
@@ -1758,6 +1763,16 @@
         } else if(type === 'refund') {
             alert('Return Policy: Returns accepted within 7 days of delivery. Product must be unused and in original packaging. Contact us via WhatsApp.');
         }
+    }
+
+    // ========== HAPTIC FEEDBACK ==========
+    function haptic(type = 'light') {
+        if (!navigator.vibrate) return;
+        if (type === 'light') navigator.vibrate(10);
+        else if (type === 'medium') navigator.vibrate(25);
+        else if (type === 'heavy') navigator.vibrate([30, 10, 30]);
+        else if (type === 'success') navigator.vibrate([10, 5, 10, 5, 30]);
+        else if (type === 'error') navigator.vibrate([50, 20, 50]);
     }
 
     window.onload = () => {};
