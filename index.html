@@ -1247,6 +1247,63 @@
         .legal-item:last-child { border-bottom: none; }
         .legal-item-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
 
+
+        /* ========== PRODUCT EDITOR ========== */
+        .adm-product-row {
+            background: #111; border: 1px solid #1e1e1e;
+            padding: 16px 18px; margin-bottom: 10px;
+            display: grid; grid-template-columns: 60px 1fr 120px 120px auto;
+            gap: 12px; align-items: center;
+            transition: border-color 0.2s;
+        }
+        .adm-product-row:hover { border-color: rgba(197,160,89,0.3); }
+        .adm-product-thumb {
+            width: 55px; height: 55px; object-fit: cover;
+            border: 1px solid #2a2a2a;
+        }
+        .adm-product-name-input {
+            width: 100%; padding: 9px 12px; background: #0d0d0d;
+            border: 1px solid #2a2a2a; color: #ccc;
+            font-family: 'Josefin Sans', sans-serif; font-size: 0.75rem;
+            outline: none; transition: border-color 0.3s;
+        }
+        .adm-product-name-input:focus { border-color: var(--gold); }
+        .adm-price-input {
+            width: 100%; padding: 9px 12px; background: #0d0d0d;
+            border: 1px solid #2a2a2a; color: var(--gold);
+            font-family: 'Josefin Sans', sans-serif; font-size: 0.85rem;
+            font-weight: 700; outline: none; transition: border-color 0.3s;
+        }
+        .adm-price-input:focus { border-color: var(--gold); }
+        .adm-img-input {
+            width: 100%; padding: 9px 12px; background: #0d0d0d;
+            border: 1px solid #2a2a2a; color: #888;
+            font-family: 'Josefin Sans', sans-serif; font-size: 0.7rem;
+            outline: none; transition: border-color 0.3s;
+        }
+        .adm-img-input:focus { border-color: var(--gold); }
+        .adm-del-btn {
+            background: transparent; border: 1px solid #c0392b;
+            color: #c0392b; padding: 8px 14px; cursor: pointer;
+            font-family: 'Josefin Sans', sans-serif; font-size: 0.6rem;
+            font-weight: 700; letter-spacing: 1px; transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .adm-del-btn:hover { background: #c0392b; color: white; }
+        .adm-product-row-labels {
+            display: grid; grid-template-columns: 60px 1fr 120px 120px auto;
+            gap: 12px; padding: 0 18px 8px;
+        }
+        .adm-col-label {
+            font-size: 0.5rem; font-weight: 700; letter-spacing: 3px;
+            text-transform: uppercase; color: #333;
+        }
+        @media (max-width: 768px) {
+            .adm-product-row { grid-template-columns: 1fr; }
+            .adm-product-row-labels { display: none; }
+            .adm-product-thumb { width: 100%; height: 120px; }
+        }
+
     </style>
 </head>
 <body style="overflow: hidden;">
@@ -1953,6 +2010,8 @@
     ];
 
     const featuredIds = ['rx2', 'rw1', 'rx1'];
+    // Store reference so admin module can access and modify it
+    window._liveProducts = products;
     let cart = [];
     let currentPage = 'home';
 
@@ -1997,7 +2056,7 @@
     }
 
     function displayFeatured() {
-        const featured = products.filter(p => featuredIds.includes(p.id));
+        const featured = (window._liveProducts || products).filter(p => featuredIds.includes(p.id));
         const grid = document.getElementById('featuredGrid');
         grid.innerHTML = featured.map(p => makeCard(p)).join('');
         setTimeout(() => {
@@ -2045,14 +2104,16 @@
         haptic('light');
         document.querySelectorAll('#catBar .cat-item').forEach(c => c.classList.remove('active'));
         el.classList.add('active');
-        displayProducts(cat === 'all' ? products : products.filter(p => p.cat === cat));
+        const lp = window._liveProducts || products;
+        displayProducts(cat === 'all' ? lp : lp.filter(p => p.cat === cat));
     }
 
     function searchProducts() {
         const term = document.getElementById('searchInput').value.toLowerCase();
         if(term.length > 0) {
             showPage('categories');
-            displayProducts(products.filter(p => p.name.toLowerCase().includes(term)));
+            const lp = window._liveProducts || products;
+            displayProducts(lp.filter(p => p.name.toLowerCase().includes(term)));
         }
     }
 
@@ -2360,6 +2421,7 @@
         <div class="adm-tab" onclick="switchAdmTab('story', this)">📖 Brand Story</div>
         <div class="adm-tab" onclick="switchAdmTab('newsletter', this)">✉ Newsletter</div>
         <div class="adm-tab" onclick="switchAdmTab('media', this)">🖼 Images</div>
+        <div class="adm-tab" onclick="switchAdmTab('products', this)">📦 Products</div>
     </div>
 
     <div class="adm-body">
@@ -2490,6 +2552,49 @@
                 To reset all images back to defaults, click ↺ RESET above.
             </p>
         </div>
+
+        <!-- PRODUCTS PANEL -->
+        <div id="admPanel-products" class="adm-panel">
+            <div class="adm-section-title">📦 Products Manager</div>
+            <p style="color:#666; font-size:0.7rem; letter-spacing:2px; margin-bottom:20px;">Edit product names, prices and images. Changes save to Firebase — visible everywhere instantly.</p>
+            <div id="adm-products-list"></div>
+            <div class="adm-section-title" style="margin-top:24px;">➕ Add New Product</div>
+            <div class="adm-grid">
+                <div class="adm-field">
+                    <label class="adm-label">Product ID (unique, no spaces)</label>
+                    <input type="text" class="adm-input" id="adm-new-id" placeholder="e.g. watch_new1">
+                </div>
+                <div class="adm-field">
+                    <label class="adm-label">Product Name</label>
+                    <input type="text" class="adm-input" id="adm-new-name" placeholder="e.g. Premium Gold Watch">
+                </div>
+                <div class="adm-field">
+                    <label class="adm-label">Price (Rs.)</label>
+                    <input type="number" class="adm-input" id="adm-new-price" placeholder="e.g. 2500">
+                </div>
+                <div class="adm-field">
+                    <label class="adm-label">Category</label>
+                    <select class="adm-input" id="adm-new-cat">
+                        <option value="Watches">Watches</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Fashion">Fashion</option>
+                    </select>
+                </div>
+                <div class="adm-field">
+                    <label class="adm-label">Badge (optional)</label>
+                    <input type="text" class="adm-input" id="adm-new-badge" placeholder="e.g. New Arrival">
+                </div>
+                <div class="adm-field">
+                    <label class="adm-label">Main Image URL</label>
+                    <input type="url" class="adm-input" id="adm-new-img" placeholder="https://...">
+                </div>
+                <div class="adm-field" style="grid-column: 1/-1;">
+                    <label class="adm-label">Description (use \n for new lines)</label>
+                    <textarea class="adm-textarea" id="adm-new-desc" rows="4" placeholder="✨ Product description here..."></textarea>
+                </div>
+            </div>
+            <button class="adm-apply-btn" style="margin-top:16px; width:100%; padding:14px; font-size:0.65rem;" onclick="addNewProduct()">➕ ADD PRODUCT TO STORE</button>
+        </div>
     </div>
 </div>
 
@@ -2511,6 +2616,9 @@ function previewHeroBg() { if(window._adminBridge.previewHeroBg) window._adminBr
 function previewStoryImg() { if(window._adminBridge.previewStoryImg) window._adminBridge.previewStoryImg(); }
 function applyMediaHeroBg() { if(window._adminBridge.applyMediaHeroBg) window._adminBridge.applyMediaHeroBg(); }
 function applyMediaStoryImg() { if(window._adminBridge.applyMediaStoryImg) window._adminBridge.applyMediaStoryImg(); }
+function addNewProduct() { if(window._adminBridge.addNewProduct) window._adminBridge.addNewProduct(); }
+function deleteProduct(pid) { if(window._adminBridge.deleteProduct) window._adminBridge.deleteProduct(pid); }
+function renderProductEditor(arr) { if(window._adminBridge.renderProductEditor) window._adminBridge.renderProductEditor(arr); }
 </script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
@@ -2613,6 +2721,23 @@ async function getStoredData() {
 }
 
 async function saveAllAdmin() {
+    // Save product overrides
+    const productOverrides = {};
+    document.querySelectorAll('.adm-product-row').forEach(row => {
+        const pid = row.dataset.pid;
+        if(!pid) return;
+        const nameEl = row.querySelector('.adm-product-name-input');
+        const priceEl = row.querySelector('.adm-price-input');
+        const imgEl = row.querySelector('.adm-img-input');
+        if(nameEl && priceEl) {
+            productOverrides[pid] = {
+                name: nameEl.value,
+                price: parseInt(priceEl.value) || 0,
+                img: imgEl ? imgEl.value : ''
+            };
+        }
+    });
+
     const data = {
         announcement: document.getElementById('adm-announcement').value,
         timerText:    document.getElementById('adm-timerText').value,
@@ -2631,6 +2756,8 @@ async function saveAllAdmin() {
         storyImg:     document.getElementById('adm-storyImg').value || document.getElementById('adm-media-storyImg').value,
         newsH2:       document.getElementById('adm-newsH2').value,
         newsP:        document.getElementById('adm-newsP').value,
+        productOverrides: Object.keys(productOverrides).length > 0 ? productOverrides : null,
+        customProducts: _getCustomProducts(),
     };
     Object.keys(data).forEach(k => { if(!data[k]) delete data[k]; });
     try {
@@ -2674,6 +2801,8 @@ async function loadAdminFields() {
                              document.getElementById('adm-media-storyImg').value  = data.storyImg; }
     if(data.newsH2)          document.getElementById('adm-newsH2').value          = data.newsH2;
     if(data.newsP)           document.getElementById('adm-newsP').value           = data.newsP;
+    // Render product editor with current live products
+    setTimeout(() => renderProductEditor(window._liveProducts || []), 100);
 }
 
 function applyAdminData(data) {
@@ -2699,6 +2828,18 @@ function applyAdminData(data) {
     if(data.storyImg) { const el = document.getElementById('storyImg'); if(el) el.style.backgroundImage = "url('" + data.storyImg + "')"; }
     if(data.newsH2) { const el = document.getElementById('newsletterH2'); if(el) el.innerText = data.newsH2; }
     if(data.newsP) { const el = document.getElementById('newsletterP'); if(el) el.innerText = data.newsP; }
+    // Apply product changes
+    if(data.productOverrides) applyProductOverrides(data.productOverrides);
+    if(data.customProducts) { window._customProductsData = data.customProducts; applyCustomProducts(data.customProducts); }
+    // Re-render grids after product changes
+    setTimeout(() => {
+        if(typeof displayFeatured === 'function') displayFeatured();
+        if(typeof displayProducts === 'function') {
+            const activecat = document.querySelector('#catBar .cat-item.active');
+            const catText = activecat ? activecat.innerText : '';
+            if(catText.includes('All') || catText === '') displayProducts(window._liveProducts || []);
+        }
+    }, 50);
 }
 
 function previewHeroBg() { const url = document.getElementById('adm-heroBg').value; const prev = document.getElementById('adm-heroBg-preview'); if(url) { prev.src = url; prev.style.display = 'block'; } }
@@ -2726,6 +2867,132 @@ window._adminBridge.previewHeroBg = previewHeroBg;
 window._adminBridge.previewStoryImg = previewStoryImg;
 window._adminBridge.applyMediaHeroBg = applyMediaHeroBg;
 window._adminBridge.applyMediaStoryImg = applyMediaStoryImg;
+window._adminBridge.addNewProduct = addNewProduct;
+window._adminBridge.deleteProduct = deleteProduct;
+
+// ---- PRODUCT HELPERS ----
+function _getCustomProducts() {
+    const custom = [];
+    const newProdsEl = document.getElementById('adm-products-list');
+    if(!newProdsEl) return custom;
+    // Custom products are stored separately in Firebase
+    return window._customProductsData || [];
+}
+
+function renderProductEditor(productsArr) {
+    const container = document.getElementById('adm-products-list');
+    if(!container) return;
+    container.innerHTML = `
+        <div class="adm-product-row-labels">
+            <span class="adm-col-label">Image</span>
+            <span class="adm-col-label">Product Name</span>
+            <span class="adm-col-label">Price (Rs.)</span>
+            <span class="adm-col-label">Image URL</span>
+            <span class="adm-col-label">Action</span>
+        </div>
+    ` + productsArr.map(p => `
+        <div class="adm-product-row" data-pid="${p.id}">
+            <img class="adm-product-thumb" src="${p.img}" alt="">
+            <input class="adm-product-name-input" type="text" value="${p.name}" placeholder="Product name"
+                   oninput="this.closest('.adm-product-row').querySelector('.adm-product-thumb').src=this.closest('.adm-product-row').querySelector('.adm-img-input').value||'${p.img}'">
+            <input class="adm-price-input" type="number" value="${p.price}" placeholder="Price">
+            <input class="adm-img-input" type="url" value="${p.img}" placeholder="Image URL"
+                   oninput="this.closest('.adm-product-row').querySelector('.adm-product-thumb').src=this.value||'${p.img}'">
+            <button class="adm-del-btn" onclick="deleteProduct('${p.id}')">🗑 DEL</button>
+        </div>
+    `).join('');
+}
+
+function applyProductOverrides(overrides) {
+    if(!overrides) return;
+    // Apply to live products array
+    Object.keys(overrides).forEach(pid => {
+        const p = window._liveProducts.find(x => x.id === pid);
+        if(p) {
+            if(overrides[pid].name) p.name = overrides[pid].name;
+            if(overrides[pid].price) p.price = overrides[pid].price;
+            if(overrides[pid].img) { p.img = overrides[pid].img; if(p.imgs) p.imgs[0] = overrides[pid].img; }
+        }
+    });
+}
+
+function applyCustomProducts(customArr) {
+    if(!customArr || !customArr.length) return;
+    customArr.forEach(p => {
+        if(!window._liveProducts.find(x => x.id === p.id)) {
+            window._liveProducts.push(p);
+        }
+    });
+}
+
+async function addNewProduct() {
+    const id = document.getElementById('adm-new-id').value.trim().replace(/\s+/g,'_');
+    const name = document.getElementById('adm-new-name').value.trim();
+    const price = parseInt(document.getElementById('adm-new-price').value) || 0;
+    const cat = document.getElementById('adm-new-cat').value;
+    const badge = document.getElementById('adm-new-badge').value.trim();
+    const img = document.getElementById('adm-new-img').value.trim();
+    const desc = document.getElementById('adm-new-desc').value.trim();
+
+    if(!id || !name || !price || !img) {
+        showToast('⚠ Fill ID, Name, Price and Image!');
+        return;
+    }
+    if(window._liveProducts.find(x => x.id === id)) {
+        showToast('⚠ Product ID already exists!');
+        return;
+    }
+
+    const newProduct = { id, cat, name, price, img, badge, desc, imgs: [img] };
+    window._liveProducts.push(newProduct);
+    if(!window._customProductsData) window._customProductsData = [];
+    window._customProductsData.push(newProduct);
+
+    // Save to Firebase
+    const stored = await getStoredData() || {};
+    if(!stored.customProducts) stored.customProducts = [];
+    stored.customProducts.push(newProduct);
+    try {
+        await set(ref(_db, DB_PATH), stored);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(stored));
+    } catch(e) { localStorage.setItem(STORAGE_KEY, JSON.stringify(stored)); }
+
+    // Re-render editor and products on page
+    renderProductEditor(window._liveProducts);
+    if(typeof displayProducts === 'function') displayProducts(window._liveProducts);
+    if(typeof displayFeatured === 'function') displayFeatured();
+
+    // Clear form
+    ['adm-new-id','adm-new-name','adm-new-price','adm-new-badge','adm-new-img','adm-new-desc'].forEach(id2 => {
+        document.getElementById(id2).value = '';
+    });
+    document.getElementById('adm-new-cat').value = 'Watches';
+    showToast('✅ Product added to store!');
+}
+
+async function deleteProduct(pid) {
+    if(!confirm('Delete this product from store?')) return;
+    window._liveProducts = window._liveProducts.filter(p => p.id !== pid);
+    if(window._customProductsData) window._customProductsData = window._customProductsData.filter(p => p.id !== pid);
+
+    // Build override object without deleted product
+    const stored = await getStoredData() || {};
+    if(stored.productOverrides) delete stored.productOverrides[pid];
+    if(stored.customProducts) stored.customProducts = stored.customProducts.filter(p => p.id !== pid);
+
+    try {
+        await set(ref(_db, DB_PATH), stored);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(stored));
+    } catch(e) { localStorage.setItem(STORAGE_KEY, JSON.stringify(stored)); }
+
+    renderProductEditor(window._liveProducts);
+    if(typeof displayProducts === 'function') displayProducts(window._liveProducts);
+    showToast('🗑 Product deleted!');
+}
+
+window._adminBridge.addNewProduct = addNewProduct;
+window._adminBridge.deleteProduct = deleteProduct;
+window._adminBridge.renderProductEditor = renderProductEditor;
 
 // ---- APPLY SAVED DATA ON PAGE LOAD ----
 (async function initAdmin() {
