@@ -2727,12 +2727,12 @@
         </div>
         <!-- AI ASSISTANT PANEL -->
         <div id="admPanel-ai" class="adm-panel">
-            <div class="adm-section-title">🤖 AI Website Assistant — Powered by Gemini</div>
+            <div class="adm-section-title">🤖 AI Website Assistant — Powered by Groq ⚡</div>
             <p style="color:#555; font-size:0.7rem; letter-spacing:2px; margin-bottom:16px;">
                 Koi bhi command do — AI automatically website update karega aur Firebase mein save karega!
             </p>
             <div class="adm-ai-wrap">
-                <div class="adm-ai-status">Gemini AI — Online & Ready</div>
+                <div class="adm-ai-status">Groq AI — Online & Ready</div>
                 <div class="adm-ai-messages" id="aiMessages">
                     <div class="adm-msg ai">
                         👋 <strong>AFFINEX AI Assistant</strong> — Ready! 🔥<br><br>
@@ -3179,9 +3179,9 @@ window._adminBridge.renderProductEditor = renderProductEditor;
 
 
 // ========== GEMINI AI ASSISTANT ==========
-const _gk1='AIzaSyDY5Q4HNugaZLys',_gk2='WGxouGJh26EMQAjXeF8';
+const _gk1='gsk_o3RRfWMdoSRJlGBdki1PW',_gk2='Gdyb3FYUxxIrUfmA4CBV0SC7DDoGyNa';
 const GEMINI_API_KEY = _gk1+_gk2;
-const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
+const GEMINI_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
 function aiAddMsg(text, type='ai') {
     const box = document.getElementById('aiMessages');
@@ -3299,16 +3299,21 @@ Ab user ki command samjho aur perfect JSON response do!`;
     try {
         const response = await fetch(GEMINI_URL, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + GEMINI_API_KEY
+            },
             body: JSON.stringify({
-                contents: [{ parts: [{ text: systemPrompt }] }],
-                generationConfig: { temperature: 0.4, maxOutputTokens: 1000 }
+                model: 'llama-3.3-70b-versatile',
+                messages: [{ role: 'user', content: systemPrompt }],
+                temperature: 0.4,
+                max_tokens: 1000
             })
         });
 
         if(!response.ok) throw new Error('API error ' + response.status);
         const result = await response.json();
-        const rawText = result.candidates?.[0]?.content?.parts?.[0]?.text || '';
+        const rawText = result.choices?.[0]?.message?.content || '';
 
         const jsonMatch = rawText.match(/\{[\s\S]*\}/);
         if(!jsonMatch) throw new Error('JSON nahi mila');
@@ -3400,7 +3405,7 @@ Ab user ki command samjho aur perfect JSON response do!`;
     } catch(e) {
         thinkDiv.remove();
         console.error('AI Error:', e);
-        if(e.message.includes('403')) aiAddMsg('❌ API Key issue! Gemini console check karo.', 'ai error');
+        if(e.message.includes('403')) aiAddMsg('❌ API Key issue! Groq console check karo.', 'ai error');
         else if(e.message.includes('429')) aiAddMsg('⏳ Too many requests — 1 minute baad try karo!', 'ai error');
         else aiAddMsg('❌ Error: ' + (e.message || 'Unknown') + '<br>Dobara try karo!', 'ai error');
     }
