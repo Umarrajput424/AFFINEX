@@ -326,7 +326,7 @@
         .nav-page-item.active { color: var(--gold); }
         .nav-page-item.active::after { width: 100%; }
 
-        /* ========== PREMIUM RAMADAN DECORATIONS ========== */
+        /* ========== PREMIUM EID DECORATIONS ========== */
         .ramadan-decor-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100vh;
@@ -1443,10 +1443,10 @@
 <div class="announcement-bar">
     <div class="marquee" id="announcementMarquee">
         <span>✨ FREE SHIPPING ALL OVER PAKISTAN ✨</span>
-        <span>🌙 RAMADAN MEGA SALE IS LIVE - UP TO 50% OFF 🌙</span>
+        <span>🌙 EID MUBARAK — EID SALE IS LIVE — UP TO 50% OFF 🌙</span>
         <span>💎 100% AUTHENTICITY GUARANTEED 💎</span>
         <span>✨ FREE SHIPPING ALL OVER PAKISTAN ✨</span>
-        <span>🌙 RAMADAN MEGA SALE IS LIVE - UP TO 50% OFF 🌙</span>
+        <span>🌙 EID MUBARAK — EID SALE IS LIVE — UP TO 50% OFF 🌙</span>
         <span>💎 100% AUTHENTICITY GUARANTEED 💎</span>
     </div>
 </div>
@@ -1486,77 +1486,89 @@
             </linearGradient>
         </defs>
     </svg>
+
+    <!-- Twinkling sparkles scattered across the page -->
     <div class="sparkle" style="top: 15%; left: 10%; animation-delay: 0s;"></div>
     <div class="sparkle" style="top: 25%; left: 85%; animation-delay: 1s;"></div>
     <div class="sparkle" style="top: 55%; left: 5%; animation-delay: 2s;"></div>
     <div class="sparkle" style="top: 45%; left: 92%; animation-delay: 1.5s;"></div>
     <div class="sparkle" style="top: 80%; left: 15%; animation-delay: 0.5s;"></div>
     <div class="sparkle" style="top: 75%; left: 88%; animation-delay: 2.5s;"></div>
+    <div class="sparkle" style="top: 35%; left: 50%; animation-delay: 3s;"></div>
+    <div class="sparkle" style="top: 60%; left: 70%; animation-delay: 0.8s;"></div>
+
+    <!-- LEFT CLUSTER — Eid Star + Crescent + Star -->
     <div class="rh-cluster rh-left">
+        <!-- Large 5-pointed Eid star -->
         <div class="rh-wire rh-w1">
             <div class="rh-ornament">
-                <svg class="rh-svg" width="40" height="75" viewBox="0 0 24 45" fill="none" stroke="url(#goldGrad)" stroke-width="1.2">
-                    <circle cx="12" cy="2" r="1.5" stroke-width="1"/>
-                    <path d="M12 3.5 L12 6 M8 6 Q12 2 16 6 L18 13 L6 13 Z" fill="rgba(197,160,89,0.15)"/>
-                    <path d="M6 13 L18 13 L15 32 L9 32 Z" fill="rgba(197,160,89,0.05)"/>
-                    <path d="M9 32 L15 32 L16 38 L8 38 Z" fill="rgba(197,160,89,0.15)"/>
-                    <path d="M12 38 L12 44 M10 44 L14 44" stroke="var(--gold)" stroke-width="1"/>
-                    <line x1="12" y1="13" x2="12" y2="32" stroke-width="0.8" stroke="var(--gold-light)"/>
-                    <circle cx="12" cy="24" r="2.5" fill="#fff" filter="drop-shadow(0 0 8px var(--gold-light))" stroke="none"/>
+                <svg class="rh-svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
+                    <polygon points="24,4 28.9,18.1 44,18.1 31.6,27.5 36.5,41.6 24,32.2 11.5,41.6 16.4,27.5 4,18.1 19.1,18.1"
+                        fill="url(#goldGrad)" stroke="var(--gold-light)" stroke-width="0.8"
+                        filter="drop-shadow(0 0 10px rgba(197,160,89,0.7))"/>
+                    <circle cx="24" cy="24" r="4" fill="#fff" opacity="0.8" filter="drop-shadow(0 0 6px var(--gold))"/>
                 </svg>
             </div>
         </div>
+        <!-- Small decorative 4-pointed star -->
         <div class="rh-wire rh-w4">
             <div class="rh-ornament">
-                <svg class="rh-svg" width="30" height="30" viewBox="0 0 30 30" fill="none" stroke="var(--gold-light)" stroke-width="1">
-                    <rect x="7" y="7" width="16" height="16" transform="rotate(45 15 15)" fill="rgba(197,160,89,0.15)"/>
-                    <rect x="7" y="7" width="16" height="16" fill="rgba(197,160,89,0.15)"/>
-                    <circle cx="15" cy="15" r="2.5" fill="#fff" filter="drop-shadow(0 0 6px var(--gold))" stroke="none"/>
+                <svg class="rh-svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+                    <polygon points="14,2 16.5,11.5 26,14 16.5,16.5 14,26 11.5,16.5 2,14 11.5,11.5"
+                        fill="url(#goldGrad)" stroke="var(--gold-light)" stroke-width="0.7"
+                        filter="drop-shadow(0 0 8px rgba(197,160,89,0.6))"/>
+                    <circle cx="14" cy="14" r="2.5" fill="#fff" opacity="0.9" filter="drop-shadow(0 0 4px var(--gold))"/>
                 </svg>
             </div>
         </div>
+        <!-- Crescent moon -->
         <div class="rh-wire rh-w2">
             <div class="rh-ornament">
-                <svg class="rh-svg" width="25" height="45" viewBox="0 0 20 40" fill="none" stroke="var(--gold-light)" stroke-width="1">
-                    <path d="M10 2 Q15 10 16 18 Q16 26 10 32 Q4 26 4 18 Q3 10 10 2 Z" fill="rgba(197,160,89,0.1)"/>
-                    <line x1="10" y1="2" x2="10" y2="32" stroke-width="0.5"/>
-                    <line x1="4" y1="18" x2="16" y2="18" stroke-width="0.5"/>
-                    <circle cx="10" cy="18" r="2" fill="#fff" filter="drop-shadow(0 0 6px var(--gold))" stroke="none"/>
-                    <path d="M10 32 L10 38 M8 38 L12 38" stroke="var(--gold)" stroke-width="0.8"/>
+                <svg class="rh-svg" width="36" height="40" viewBox="0 0 36 40" fill="none">
+                    <path d="M28 20A12 12 0 1 1 16 8 9 9 0 0 0 28 20z"
+                        fill="url(#goldGrad)" stroke="var(--gold-light)" stroke-width="0.8"
+                        filter="drop-shadow(0 0 10px rgba(197,160,89,0.65))"/>
+                    <!-- tiny star next to crescent -->
+                    <polygon points="27,10 28,13 31,13 28.5,14.8 29.5,17.8 27,16 24.5,17.8 25.5,14.8 23,13 26,13"
+                        fill="#fff" opacity="0.9" filter="drop-shadow(0 0 4px var(--gold-light))"/>
                 </svg>
             </div>
         </div>
     </div>
+
+    <!-- RIGHT CLUSTER — Crescent+Star + Large star + 4-pointed star -->
     <div class="rh-cluster rh-right">
+        <!-- Crescent with star (classic Eid symbol) -->
         <div class="rh-wire rh-w3">
             <div class="rh-ornament">
-                <svg class="rh-svg" width="50" height="50" viewBox="0 0 30 30" fill="none">
-                    <path d="M25 15.5A11 11 0 1 1 14.5 5 8.5 8.5 0 0 0 25 15.5z" fill="url(#goldGrad)" stroke="var(--gold-light)" stroke-width="0.5" filter="drop-shadow(0 0 6px rgba(197,160,89,0.5))"/>
-                    <path d="M17 7 L18.5 8.5 L20.5 8 L20 10 L21.5 11.5 L19.5 12 L19 14 L17.5 12.5 L15.5 13 L16 11 L14.5 9.5 L16.5 9 Z" fill="#fff" filter="drop-shadow(0 0 5px var(--gold-light))"/>
+                <svg class="rh-svg" width="54" height="54" viewBox="0 0 54 54" fill="none">
+                    <path d="M38 27A13 13 0 1 1 25 14 10 10 0 0 0 38 27z"
+                        fill="url(#goldGrad)" stroke="var(--gold-light)" stroke-width="0.8"
+                        filter="drop-shadow(0 0 14px rgba(197,160,89,0.7))"/>
+                    <polygon points="39,15 40.4,19.5 45,19.5 41.3,22.2 42.7,26.7 39,24 35.3,26.7 36.7,22.2 33,19.5 37.6,19.5"
+                        fill="#fff" opacity="0.95" filter="drop-shadow(0 0 6px var(--gold-light))"/>
                 </svg>
             </div>
         </div>
+        <!-- Large 5-pointed Eid star -->
         <div class="rh-wire rh-w2">
             <div class="rh-ornament">
-                <svg class="rh-svg" width="40" height="75" viewBox="0 0 24 45" fill="none" stroke="url(#goldGrad)" stroke-width="1.2">
-                    <circle cx="12" cy="2" r="1.5" stroke-width="1"/>
-                    <path d="M12 3.5 L12 6 M8 6 Q12 2 16 6 L18 13 L6 13 Z" fill="rgba(197,160,89,0.15)"/>
-                    <path d="M6 13 L18 13 L15 32 L9 32 Z" fill="rgba(197,160,89,0.05)"/>
-                    <path d="M9 32 L15 32 L16 38 L8 38 Z" fill="rgba(197,160,89,0.15)"/>
-                    <path d="M12 38 L12 44 M10 44 L14 44" stroke="var(--gold)" stroke-width="1"/>
-                    <line x1="12" y1="13" x2="12" y2="32" stroke-width="0.8" stroke="var(--gold-light)"/>
-                    <circle cx="12" cy="24" r="2.5" fill="#fff" filter="drop-shadow(0 0 8px var(--gold-light))" stroke="none"/>
+                <svg class="rh-svg" width="44" height="44" viewBox="0 0 44 44" fill="none">
+                    <polygon points="22,3 26.4,16 40,16 29,24.8 33.4,37.8 22,29 10.6,37.8 15,24.8 4,16 17.6,16"
+                        fill="url(#goldGrad)" stroke="var(--gold-light)" stroke-width="0.8"
+                        filter="drop-shadow(0 0 10px rgba(197,160,89,0.7))"/>
+                    <circle cx="22" cy="22" r="3.5" fill="#fff" opacity="0.85" filter="drop-shadow(0 0 5px var(--gold))"/>
                 </svg>
             </div>
         </div>
+        <!-- Small 4-pointed star -->
         <div class="rh-wire rh-w4">
             <div class="rh-ornament">
-                <svg class="rh-svg" width="25" height="45" viewBox="0 0 20 40" fill="none" stroke="var(--gold-light)" stroke-width="1">
-                    <path d="M10 2 Q15 10 16 18 Q16 26 10 32 Q4 26 4 18 Q3 10 10 2 Z" fill="rgba(197,160,89,0.1)"/>
-                    <line x1="10" y1="2" x2="10" y2="32" stroke-width="0.5"/>
-                    <line x1="4" y1="18" x2="16" y2="18" stroke-width="0.5"/>
-                    <circle cx="10" cy="18" r="2" fill="#fff" filter="drop-shadow(0 0 6px var(--gold))" stroke="none"/>
-                    <path d="M10 32 L10 38 M8 38 L12 38" stroke="var(--gold)" stroke-width="0.8"/>
+                <svg class="rh-svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
+                    <polygon points="13,2 15.2,10.8 24,13 15.2,15.2 13,24 10.8,15.2 2,13 10.8,10.8"
+                        fill="url(#goldGrad)" stroke="var(--gold-light)" stroke-width="0.7"
+                        filter="drop-shadow(0 0 7px rgba(197,160,89,0.6))"/>
+                    <circle cx="13" cy="13" r="2" fill="#fff" opacity="0.9"/>
                 </svg>
             </div>
         </div>
@@ -1576,7 +1588,7 @@
     </div>
 
     <div class="sale-timer" id="saleTimerBar">
-        <span id="saleTimerText">🌙 &nbsp;RAMADAN EXCLUSIVE SALE ENDS IN:&nbsp;</span><span class="timer-digits" id="countdown">12:00:00</span><span id="saleTimerTextEnd"> &nbsp;🌙</span>
+        <span id="saleTimerText">✨ &nbsp;EID SALE EXCLUSIVE OFFER ENDS IN:&nbsp;</span><span class="timer-digits" id="countdown">12:00:00</span><span id="saleTimerTextEnd"> &nbsp;✨</span>
     </div>
 
     <div class="trust-strip reveal-on-scroll">
@@ -2565,7 +2577,7 @@
                 </div>
                 <div class="adm-field">
                     <label class="adm-label">Sale Timer Label</label>
-                    <input type="text" class="adm-input" id="adm-timerText" placeholder="🌙 RAMADAN EXCLUSIVE SALE ENDS IN:">
+                    <input type="text" class="adm-input" id="adm-timerText" placeholder="✨ EID SALE EXCLUSIVE OFFER ENDS IN:">
                     <label class="adm-label" style="margin-top:14px;">Timer Suffix</label>
                     <input type="text" class="adm-input" id="adm-timerEnd" placeholder="🌙">
                 </div>
@@ -3222,7 +3234,7 @@ heroEyebrow: "${currentData.heroEyebrow || 'Established 2025'}"
 heroH1: "${currentData.heroH1 || 'AFFI<span>NEX</span>'}"
 heroSub: "${currentData.heroSub || 'Curated Luxury — Delivered Across Pakistan'}"
 announcement: "${currentData.announcement || 'FREE SHIPPING ALL OVER PAKISTAN ✨'}"
-timerText: "${currentData.timerText || '🌙 RAMADAN EXCLUSIVE SALE ENDS IN:'}"
+timerText: "${currentData.timerText || '✨ EID SALE EXCLUSIVE OFFER ENDS IN:'}"
 timerEnd: "${currentData.timerEnd || '🌙'}"
 storyHeading: "${currentData.storyHeading || 'THE AFFINEX STANDARD'}"
 storyP1: "${currentData.storyP1 || 'We believe that true luxury is not defined by noise...'}"
