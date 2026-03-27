@@ -48,11 +48,14 @@
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
+
+        html { overflow-x: hidden; max-width: 100%; }
         
         body { 
             background: var(--bg); 
             color: var(--text); 
             overflow-x: hidden;
+            max-width: 100%;
             font-family: 'Josefin Sans', sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
@@ -99,8 +102,8 @@
 
         /* ========== ANNOUNCEMENT BAR ========== */
         .announcement-bar {
-            background: var(--gold);
-            color: var(--dark);
+            background: #c0392b;
+            color: #fff;
             padding: 10px 0;
             font-size: 0.65rem;
             font-weight: 700;
@@ -326,72 +329,23 @@
         .nav-page-item.active { color: var(--gold); }
         .nav-page-item.active::after { width: 100%; }
 
-        /* ========== PREMIUM EID DECORATIONS ========== */
-        .ramadan-decor-container {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100vh;
-            pointer-events: none; z-index: 9995; overflow: hidden;
-        }
-        
-        .rh-cluster { position: absolute; top: -10px; display: flex; gap: 25px; }
-        .rh-left { left: 5%; }
-        .rh-right { right: 5%; flex-direction: row-reverse; }
+        /* Eid decorations removed */
 
-        .rh-wire {
-            width: 1.5px;
-            background: linear-gradient(to bottom, #7a6335, #dfc07a);
-            position: relative;
-            transform-origin: top center;
-            animation: rhSwing ease-in-out infinite alternate;
-            box-shadow: 0 0 6px rgba(197,160,89,0.5);
-        }
-        .rh-wire::before {
-            content: ''; position: absolute; top: 0; left: -2px; width: 5.5px; height: 12px;
-            background: var(--gold); border-radius: 6px; box-shadow: 0 0 5px var(--gold);
-        }
-        .rh-ornament {
-            position: absolute; bottom: 0; left: 50%;
-            transform: translateX(-50%) translateY(98%);
-            filter: drop-shadow(0 15px 25px rgba(197,160,89,0.6));
-        }
-
-        .rh-w1 { height: 180px; animation-duration: 3.8s; animation-delay: 0s; }
-        .rh-w2 { height: 130px; animation-duration: 3.2s; animation-delay: -1.5s; }
-        .rh-w3 { height: 240px; animation-duration: 4.5s; animation-delay: -2.8s; }
-        .rh-w4 { height: 90px;  animation-duration: 2.6s; animation-delay: -0.5s; }
-
-        @keyframes rhSwing { 0% { transform: rotate(4deg); } 100% { transform: rotate(-4deg); } }
-
-        .sparkle {
-            position: absolute; width: 2.5px; height: 2.5px; background: #fff;
-            border-radius: 50%; box-shadow: 0 0 12px 4px var(--gold-light);
-            animation: rhTwinkle 4s ease-in-out infinite alternate;
-        }
-        @keyframes rhTwinkle { 0% { opacity: 0.1; transform: scale(0.5); } 100% { opacity: 1; transform: scale(2); } }
-
-        @media (max-width: 768px) {
-            .rh-cluster { gap: 15px; top: -5px; }
-            .rh-w3 { display: none; }
-            .rh-w1 { height: 110px; }
-            .rh-w2 { height: 75px; }
-            .rh-w4 { height: 50px; }
-            .rh-svg { transform: scale(0.85); }
-        }
-
-        /* ========== SALE TIMER ENHANCED ========== */
+        /* ========== FLASH SALE TIMER ========== */
         .sale-timer { 
-            background: linear-gradient(90deg, #111, #1a1a1a);
+            background: linear-gradient(90deg, #1a0000, #2d0000, #1a0000);
             color: #fff; 
             padding: 14px; 
             text-align: center; 
             font-size: 0.65rem;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: 6px;
             text-transform: uppercase;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             position: relative;
             z-index: 10;
-            border-bottom: 1px solid rgba(197,160,89,0.1);
+            border-bottom: 1px solid rgba(231,76,60,0.3);
+            border-top: 1px solid rgba(231,76,60,0.15);
         }
         .timer-digits { 
             font-family: 'Cormorant Garamond', serif;
@@ -399,7 +353,7 @@
             margin-left: 12px;
             font-weight: 500;
             letter-spacing: 2px;
-            color: var(--gold);
+            color: #ff6b6b;
         }
 
         /* ========== HOME HERO ========== */
@@ -1442,11 +1396,13 @@
 
 <div class="announcement-bar">
     <div class="marquee" id="announcementMarquee">
+        <span>⚡ FLASH SALE — UP TO 50% OFF STOREWIDE ⚡</span>
         <span>✨ FREE SHIPPING ALL OVER PAKISTAN ✨</span>
-        <span>🌙 EID MUBARAK — EID SALE IS LIVE — UP TO 50% OFF 🌙</span>
+        <span>⚡ LIMITED TIME ONLY — SHOP NOW ⚡</span>
         <span>💎 100% AUTHENTICITY GUARANTEED 💎</span>
+        <span>⚡ FLASH SALE — UP TO 50% OFF STOREWIDE ⚡</span>
         <span>✨ FREE SHIPPING ALL OVER PAKISTAN ✨</span>
-        <span>🌙 EID MUBARAK — EID SALE IS LIVE — UP TO 50% OFF 🌙</span>
+        <span>⚡ LIMITED TIME ONLY — SHOP NOW ⚡</span>
         <span>💎 100% AUTHENTICITY GUARANTEED 💎</span>
     </div>
 </div>
@@ -1476,105 +1432,6 @@
     <div class="nav-page-item" id="nav-categories" onclick="showPage('categories')">Collections</div>
 </nav>
 
-<div class="ramadan-decor-container">
-    <svg width="0" height="0" style="position:absolute;">
-        <defs>
-            <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#dfc07a" />
-                <stop offset="50%" stop-color="#C5A059" />
-                <stop offset="100%" stop-color="#8a6b32" />
-            </linearGradient>
-        </defs>
-    </svg>
-
-    <!-- Twinkling sparkles scattered across the page -->
-    <div class="sparkle" style="top: 15%; left: 10%; animation-delay: 0s;"></div>
-    <div class="sparkle" style="top: 25%; left: 85%; animation-delay: 1s;"></div>
-    <div class="sparkle" style="top: 55%; left: 5%; animation-delay: 2s;"></div>
-    <div class="sparkle" style="top: 45%; left: 92%; animation-delay: 1.5s;"></div>
-    <div class="sparkle" style="top: 80%; left: 15%; animation-delay: 0.5s;"></div>
-    <div class="sparkle" style="top: 75%; left: 88%; animation-delay: 2.5s;"></div>
-    <div class="sparkle" style="top: 35%; left: 50%; animation-delay: 3s;"></div>
-    <div class="sparkle" style="top: 60%; left: 70%; animation-delay: 0.8s;"></div>
-
-    <!-- LEFT CLUSTER — Eid Star + Crescent + Star -->
-    <div class="rh-cluster rh-left">
-        <!-- Large 5-pointed Eid star -->
-        <div class="rh-wire rh-w1">
-            <div class="rh-ornament">
-                <svg class="rh-svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
-                    <polygon points="24,4 28.9,18.1 44,18.1 31.6,27.5 36.5,41.6 24,32.2 11.5,41.6 16.4,27.5 4,18.1 19.1,18.1"
-                        fill="url(#goldGrad)" stroke="var(--gold-light)" stroke-width="0.8"
-                        filter="drop-shadow(0 0 10px rgba(197,160,89,0.7))"/>
-                    <circle cx="24" cy="24" r="4" fill="#fff" opacity="0.8" filter="drop-shadow(0 0 6px var(--gold))"/>
-                </svg>
-            </div>
-        </div>
-        <!-- Small decorative 4-pointed star -->
-        <div class="rh-wire rh-w4">
-            <div class="rh-ornament">
-                <svg class="rh-svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
-                    <polygon points="14,2 16.5,11.5 26,14 16.5,16.5 14,26 11.5,16.5 2,14 11.5,11.5"
-                        fill="url(#goldGrad)" stroke="var(--gold-light)" stroke-width="0.7"
-                        filter="drop-shadow(0 0 8px rgba(197,160,89,0.6))"/>
-                    <circle cx="14" cy="14" r="2.5" fill="#fff" opacity="0.9" filter="drop-shadow(0 0 4px var(--gold))"/>
-                </svg>
-            </div>
-        </div>
-        <!-- Crescent moon -->
-        <div class="rh-wire rh-w2">
-            <div class="rh-ornament">
-                <svg class="rh-svg" width="36" height="40" viewBox="0 0 36 40" fill="none">
-                    <path d="M28 20A12 12 0 1 1 16 8 9 9 0 0 0 28 20z"
-                        fill="url(#goldGrad)" stroke="var(--gold-light)" stroke-width="0.8"
-                        filter="drop-shadow(0 0 10px rgba(197,160,89,0.65))"/>
-                    <!-- tiny star next to crescent -->
-                    <polygon points="27,10 28,13 31,13 28.5,14.8 29.5,17.8 27,16 24.5,17.8 25.5,14.8 23,13 26,13"
-                        fill="#fff" opacity="0.9" filter="drop-shadow(0 0 4px var(--gold-light))"/>
-                </svg>
-            </div>
-        </div>
-    </div>
-
-    <!-- RIGHT CLUSTER — Crescent+Star + Large star + 4-pointed star -->
-    <div class="rh-cluster rh-right">
-        <!-- Crescent with star (classic Eid symbol) -->
-        <div class="rh-wire rh-w3">
-            <div class="rh-ornament">
-                <svg class="rh-svg" width="54" height="54" viewBox="0 0 54 54" fill="none">
-                    <path d="M38 27A13 13 0 1 1 25 14 10 10 0 0 0 38 27z"
-                        fill="url(#goldGrad)" stroke="var(--gold-light)" stroke-width="0.8"
-                        filter="drop-shadow(0 0 14px rgba(197,160,89,0.7))"/>
-                    <polygon points="39,15 40.4,19.5 45,19.5 41.3,22.2 42.7,26.7 39,24 35.3,26.7 36.7,22.2 33,19.5 37.6,19.5"
-                        fill="#fff" opacity="0.95" filter="drop-shadow(0 0 6px var(--gold-light))"/>
-                </svg>
-            </div>
-        </div>
-        <!-- Large 5-pointed Eid star -->
-        <div class="rh-wire rh-w2">
-            <div class="rh-ornament">
-                <svg class="rh-svg" width="44" height="44" viewBox="0 0 44 44" fill="none">
-                    <polygon points="22,3 26.4,16 40,16 29,24.8 33.4,37.8 22,29 10.6,37.8 15,24.8 4,16 17.6,16"
-                        fill="url(#goldGrad)" stroke="var(--gold-light)" stroke-width="0.8"
-                        filter="drop-shadow(0 0 10px rgba(197,160,89,0.7))"/>
-                    <circle cx="22" cy="22" r="3.5" fill="#fff" opacity="0.85" filter="drop-shadow(0 0 5px var(--gold))"/>
-                </svg>
-            </div>
-        </div>
-        <!-- Small 4-pointed star -->
-        <div class="rh-wire rh-w4">
-            <div class="rh-ornament">
-                <svg class="rh-svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
-                    <polygon points="13,2 15.2,10.8 24,13 15.2,15.2 13,24 10.8,15.2 2,13 10.8,10.8"
-                        fill="url(#goldGrad)" stroke="var(--gold-light)" stroke-width="0.7"
-                        filter="drop-shadow(0 0 7px rgba(197,160,89,0.6))"/>
-                    <circle cx="13" cy="13" r="2" fill="#fff" opacity="0.9"/>
-                </svg>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div id="homePage">
 
     <div class="home-hero" id="homeHero">
@@ -1588,7 +1445,7 @@
     </div>
 
     <div class="sale-timer" id="saleTimerBar">
-        <span id="saleTimerText">✨ &nbsp;EID SALE EXCLUSIVE OFFER ENDS IN:&nbsp;</span><span class="timer-digits" id="countdown">12:00:00</span><span id="saleTimerTextEnd"> &nbsp;✨</span>
+        <span id="saleTimerText">⚡ &nbsp;FLASH SALE ENDS IN:&nbsp;</span><span class="timer-digits" id="countdown">12:00:00</span><span id="saleTimerTextEnd"> &nbsp;⚡</span>
     </div>
 
     <div class="trust-strip reveal-on-scroll">
@@ -2577,7 +2434,7 @@
                 </div>
                 <div class="adm-field">
                     <label class="adm-label">Sale Timer Label</label>
-                    <input type="text" class="adm-input" id="adm-timerText" placeholder="✨ EID SALE EXCLUSIVE OFFER ENDS IN:">
+                    <input type="text" class="adm-input" id="adm-timerText" placeholder="⚡ FLASH SALE ENDS IN:">
                     <label class="adm-label" style="margin-top:14px;">Timer Suffix</label>
                     <input type="text" class="adm-input" id="adm-timerEnd" placeholder="🌙">
                 </div>
@@ -3234,7 +3091,7 @@ heroEyebrow: "${currentData.heroEyebrow || 'Established 2025'}"
 heroH1: "${currentData.heroH1 || 'AFFI<span>NEX</span>'}"
 heroSub: "${currentData.heroSub || 'Curated Luxury — Delivered Across Pakistan'}"
 announcement: "${currentData.announcement || 'FREE SHIPPING ALL OVER PAKISTAN ✨'}"
-timerText: "${currentData.timerText || '✨ EID SALE EXCLUSIVE OFFER ENDS IN:'}"
+timerText: "${currentData.timerText || '⚡ FLASH SALE ENDS IN:'}"
 timerEnd: "${currentData.timerEnd || '🌙'}"
 storyHeading: "${currentData.storyHeading || 'THE AFFINEX STANDARD'}"
 storyP1: "${currentData.storyP1 || 'We believe that true luxury is not defined by noise...'}"
