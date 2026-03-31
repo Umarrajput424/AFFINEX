@@ -130,7 +130,7 @@
         /* ========== SPLASH SCREEN ========== */
         #splashScreen {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100vh;
+            top: 0; left: 0; width: 100%; height: 100dvh;
             background: var(--dark);
             z-index: 999999;
             display: flex;
@@ -358,11 +358,11 @@
 
         /* ========== HOME HERO ========== */
         .home-hero {
-            height: 90vh;
-            min-height: 650px;
+            height: 90svh;
+            min-height: 600px;
             background: 
                 linear-gradient(to bottom, rgba(10,10,10,0.4) 0%, rgba(10,10,10,0.8) 80%, rgba(10,10,10,1) 100%), 
-                url('https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=2070') center/cover no-repeat fixed;
+                url('https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=2070') center/cover no-repeat scroll;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -761,7 +761,7 @@
             height: 35vh; 
             min-height: 300px;
             background: linear-gradient(rgba(10,10,10,0.7), rgba(10,10,10,0.9)), 
-                url('https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=2070') center/cover fixed; 
+                url('https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=2070') center/cover scroll; 
             display: flex; 
             flex-direction: column; 
             justify-content: center; 
@@ -983,8 +983,11 @@
             .nav-pages { top: 65px; gap: 5px; }
             .trust-item { padding: 15px 20px; }
             .cats-page-cats { top: 65px; justify-content: flex-start; }
-            .home-hero { height: 80vh; min-height: 500px; }
+            .home-hero { height: 80svh; min-height: 500px; }
             .home-hero h1 { font-size: 3.5rem; letter-spacing: 12px; }
+            .splash-logo { letter-spacing: 10px; font-size: clamp(2.8rem, 14vw, 5rem); }
+            .splash-tagline { letter-spacing: 5px; }
+            .btn-luxury { padding: 16px 35px; letter-spacing: 3px; }
             #cursor, #cursor-ring { display: none; }
             body, a, button, [onclick], input, select, textarea { cursor: auto !important; }
             .category-icons-grid { grid-template-columns: repeat(2, 1fr); margin-bottom: 60px; }
